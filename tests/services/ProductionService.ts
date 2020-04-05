@@ -11,6 +11,10 @@ export class ProductionService {
         this.productionRepository = productionRepository;
     }
 
+    public async getCounter(): Promise<number> {
+        return await this.productionRepository.getCounter();
+    }
+
     public async getData(): Promise<TestModel> {
         const data = await this.productionRepository.getData();
         data.serviceData = "production";

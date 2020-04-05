@@ -1,4 +1,4 @@
-DI.ts
+First DI
 =====
 
 Easy dependency injection for typescript applications

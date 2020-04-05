@@ -8,37 +8,31 @@ import { AutowiredLifetimes } from "../models/autowired-lifetimes";
 
 export class DI {
 
-    public autowired: (options?: AutowiredOptions) => PropertyDecorator;
+    public static defaultLifetime: AutowiredLifetimes = AutowiredLifetimes.SINGLETON;
 
-    private singletonsList: Map<new () => object, object> = new Map<new () => object, object>();
+    public autowired: (options?: AutowiredOptions) => PropertyDecorator;
+    public reset: () => void;
+    public singleton: (constructor: ClassConstructor) => object;
+    public override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
+
+    private singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
 
     constructor() {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
-    }
-
-    public singleton(constructor: ClassConstructor, params: ClassConstructor[]): object {
-        if (this.singletonsList.has(constructor)) {
-            return this.singletonsList.get(constructor) as object;
-        }
-        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => this.singleton(
-            paramConstructor,
-            (Reflect as any).getMetadata("design:paramtypes", paramConstructor) || []
-        )));
-        this.singletonsList.set(constructor, object);
-
-        return object;
-    }
-
-    public reset(): void {
-        this.singletonsList = new Map<new () => object, object>();
+        this.reset = () => this.makeReset();
+        this.singleton = (constructor: ClassConstructor) => this.makeSingleton(constructor);
+        this.override = (
+            from: ClassConstructor,
+            to: ClassConstructor,
+            options?: AutowiredOptions
+        ) => this.makeOverride(from, to, options);
     }
 
     private makeAutowired(options?: AutowiredOptions): PropertyDecorator {
         return (target: object, propertyKey: string | symbol): void => {
             const type: ClassConstructor = (Reflect as any).getMetadata("design:type", target, propertyKey);
-            const paramTypes: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", type) || [];
 
-            const lifetTime = options?.lifeTime ?? AutowiredLifetimes.SINGLETON;
+            const lifetTime = options?.lifeTime ?? DI.defaultLifetime;
             if (lifetTime === AutowiredLifetimes.SINGLETON) {
                 Object.defineProperty(
                     target,
@@ -46,8 +40,7 @@ export class DI {
                     {
                         configurable: false,
                         enumerable: false,
-                        value: this.singleton(type, paramTypes),
-                        writable: false
+                        get: () => this.singleton(type)
                     }
                 );
             } else {
@@ -56,6 +49,30 @@ export class DI {
         };
     }
 
+    private makeSingleton(constructor: ClassConstructor): object {
+        if (this.singletonsList.has(constructor)) {
+            return this.singletonsList.get(constructor) as object;
+        }
+        const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) || [];
+        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => this.singleton(paramConstructor)));
+        this.singletonsList.set(constructor, object);
+
+        return object;
+    }
+
+    private makeReset(): void {
+        this.singletonsList = new Map<ClassConstructor, object>();
+    }
+
+    private makeOverride(from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions): void {
+        console.log("111111111111111111", from, to, options);
+    }
+
 }
 
-export const { autowired, singleton, reset } = new DI(); // export as singleton
+export const {
+    autowired,
+    override,
+    singleton,
+    reset
+} = new DI(); // export as singleton

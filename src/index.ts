@@ -1,1 +1,1 @@
-export { autowired } from "./decorators/autowired";
+export * from "./decorators/autowired";
