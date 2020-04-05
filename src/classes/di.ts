@@ -83,8 +83,8 @@ export class DI {
         this.singletonsList = new Map<ClassConstructor, object>();
     }
 
-    private makeOverride(from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions): void {
-        console.log("111111111111111111", from, to, options);
+    private makeOverride(_from: ClassConstructor, _to: ClassConstructor, _options?: AutowiredOptions): void {
+        // write code
     }
 
 }
