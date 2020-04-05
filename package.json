@@ -1,0 +1,38 @@
+{
+    "name": "di.ts",
+    "version": "0.1.1",
+    "description": "Easy dependency injection for typescript applications",
+    "main": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
+    "dependencies": {},
+    "devDependencies": {
+        "@labeg/code-style": "^1.0.30",
+        "@types/chai": "^4.2.11",
+        "@types/mocha": "^7.0.2",
+        "chai": "^4.2.0",
+        "mocha": "^7.1.1",
+        "reflect-metadata": "^0.1.13",
+        "ts-node": "^8.8.2",
+        "typescript": "^3.8.3"
+    },
+    "scripts": {
+        "packages:manupdate": "rm -rvf node_modules && npm install",
+        "packages:reinstall": "rm -rvf npm-shrinkwrap.json && rm -rvf node_modules && npm install && npm dedupe && npm prune && npm shrinkwrap",
+        "packages:fullupdate": "ncu -u && npm run packages:reinstall",
+        "cs:eslint": "eslint --fix -c .eslintrc.js --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",
+        "test": "mocha --reporter spec --require ts-node/register tests/*.ts",
+        "build": "tsc --project tsconfigbuild.json",
+        "prepublishOnly": "npm run check && npm run build && npm run test"
+    },
+    "repository": {
+        "type": "git",
+        "url": " git@github.com:LabEG/di.ts.git"
+    },
+    "keywords": [
+        "dependency injection",
+        "di",
+        "ioc"
+    ],
+    "author": "LabEG",
+    "license": "MIT"
+}

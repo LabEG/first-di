@@ -1,0 +1,12 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "declaration": true,
+        "diagnostics": true,
+        "outDir": "dist/"
+    },
+    "include": [
+        "./node_modules/reflect-metadata/Reflect.d.ts",
+        "./src/**/*"
+    ]
+}
