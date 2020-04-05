@@ -14,8 +14,8 @@ describe("DI.ts", () => {
             const controllerInstance = new Controller();
             const dataFromRepository = await controllerInstance.getData();
 
-            assert.strictEqual(dataFromRepository.serviceData, "production", "Service data must be 'production'");
-            assert.strictEqual(dataFromRepository.repositoryData, "production", "Repository data must be 'production'");
+            assert.strictEqual(dataFromRepository.serviceData, "production");
+            assert.strictEqual(dataFromRepository.repositoryData, "production");
         });
 
         it("di must create singleton services", async() => {
@@ -31,7 +31,7 @@ describe("DI.ts", () => {
             assert.strictEqual(counter2, 2);
         });
 
-        it("di must reset di state", async() => {
+        it("di must reset state", async() => {
             const { Controller } = await import("./controllers/Controller");
 
             const controllerInstance1 = new Controller();
@@ -55,6 +55,18 @@ describe("DI.ts", () => {
 
             assert.strictEqual(dataA, 1);
             assert.strictEqual(dataB, 1);
+        });
+
+        it("di must support per instance injection", async() => {
+            const { Controller } = await import("./controllers/PerInstanceController");
+
+            const controllerInstance1 = new Controller();
+            const controllerInstance2 = new Controller();
+            const data1 = await controllerInstance1.getCounter();
+            const data2 = await controllerInstance2.getCounter();
+
+            assert.strictEqual(data1, 1);
+            assert.strictEqual(data2, 1);
         });
     });
 });

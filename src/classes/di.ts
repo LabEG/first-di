@@ -13,6 +13,7 @@ export class DI {
     public autowired: (options?: AutowiredOptions) => PropertyDecorator;
     public reset: () => void;
     public singleton: (constructor: ClassConstructor) => object;
+    public instance: (constructor: ClassConstructor) => object;
     public override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
 
     private singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
@@ -21,6 +22,7 @@ export class DI {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
         this.reset = () => this.makeReset();
         this.singleton = (constructor: ClassConstructor) => this.makeSingleton(constructor);
+        this.instance = (constructor: ClassConstructor) => this.makeInstance(constructor);
         this.override = (
             from: ClassConstructor,
             to: ClassConstructor,
@@ -43,6 +45,16 @@ export class DI {
                         get: () => this.singleton(type)
                     }
                 );
+            } else if (lifetTime === AutowiredLifetimes.PER_INSTANCE) {
+                Object.defineProperty(
+                    target,
+                    propertyKey,
+                    {
+                        configurable: false,
+                        enumerable: false,
+                        get: () => this.instance(type)
+                    }
+                );
             } else {
                 throw new Error("Not implemented yet.");
             }
@@ -60,6 +72,13 @@ export class DI {
         return object;
     }
 
+    private makeInstance(constructor: ClassConstructor): object {
+        const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) || [];
+        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => this.instance(paramConstructor)));
+
+        return object;
+    }
+
     private makeReset(): void {
         this.singletonsList = new Map<ClassConstructor, object>();
     }
@@ -69,10 +88,3 @@ export class DI {
     }
 
 }
-
-export const {
-    autowired,
-    override,
-    singleton,
-    reset
-} = new DI(); // export as singleton
