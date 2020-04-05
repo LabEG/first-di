@@ -20,7 +20,7 @@
         "packages:reinstall": "rm -rvf npm-shrinkwrap.json && rm -rvf node_modules && npm install && npm dedupe && npm prune && npm shrinkwrap",
         "packages:fullupdate": "ncu -u && npm run packages:reinstall",
         "cs:eslint": "eslint --fix -c .eslintrc.js --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",
-        "test": "mocha --reporter spec --require ts-node/register tests/*.ts",
+        "test": "mocha --reporter spec --require ts-node/register tests/*.test.ts",
         "build": "tsc --project tsconfigbuild.json",
         "prepublishOnly": "npm run check && npm run build && npm run test"
     },
