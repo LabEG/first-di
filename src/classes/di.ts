@@ -5,10 +5,13 @@
 import { AutowiredOptions } from "../models/autowired-options";
 import { ClassConstructor } from "../typings/class-constructor";
 import { AutowiredLifetimes } from "../models/autowired-lifetimes";
+import { OverrideOptions } from "../models/override-options";
 
 export class DI {
 
-    public static defaultLifetime: AutowiredLifetimes = AutowiredLifetimes.SINGLETON;
+    public static defaultOptions: AutowiredOptions = {
+        lifeTime: AutowiredLifetimes.SINGLETON
+    };
 
     public autowired: (options?: AutowiredOptions) => PropertyDecorator;
     public reset: () => void;
@@ -17,6 +20,7 @@ export class DI {
     public override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
 
     private singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
+    private overrideList: Map<ClassConstructor, OverrideOptions> = new Map<ClassConstructor, OverrideOptions>();
 
     constructor() {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
@@ -34,7 +38,7 @@ export class DI {
         return (target: object, propertyKey: string | symbol): void => {
             const type: ClassConstructor = (Reflect as any).getMetadata("design:type", target, propertyKey);
 
-            const lifetTime = options?.lifeTime ?? DI.defaultLifetime;
+            const lifetTime = options?.lifeTime ?? DI.defaultOptions.lifeTime;
             if (lifetTime === AutowiredLifetimes.SINGLETON) {
                 Object.defineProperty(
                     target,
@@ -46,13 +50,21 @@ export class DI {
                     }
                 );
             } else if (lifetTime === AutowiredLifetimes.PER_INSTANCE) {
+                const instanceMaker = this.instance;
                 Object.defineProperty(
                     target,
                     propertyKey,
                     {
                         configurable: false,
                         enumerable: false,
-                        get: () => this.instance(type)
+                        // eslint-disable-next-line func-names
+                        get(): object {
+                            if (!Reflect.has(this, `$_${String(propertyKey)}`)) {
+                                Reflect.set(this, `$_${String(propertyKey)}`, instanceMaker(type));
+                            }
+
+                            return Reflect.get(this, `$_${String(propertyKey)}`) as object;
+                        }
                     }
                 );
             } else if (lifetTime === AutowiredLifetimes.PER_OWNED) {
@@ -102,10 +114,11 @@ export class DI {
 
     private makeReset(): void {
         this.singletonsList = new Map<ClassConstructor, object>();
+        this.overrideList = new Map<ClassConstructor, OverrideOptions>();
     }
 
-    private makeOverride(_from: ClassConstructor, _to: ClassConstructor, _options?: AutowiredOptions): void {
-        // write code
+    private makeOverride(from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions): void {
+        this.overrideList.set(from, { to, options });
     }
 
 }

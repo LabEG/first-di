@@ -63,10 +63,12 @@ describe("DI.ts", () => {
             const controllerInstance1 = new Controller();
             const controllerInstance2 = new Controller();
             const data1 = await controllerInstance1.getCounter();
-            const data2 = await controllerInstance2.getCounter();
+            const data2 = await controllerInstance1.getCounter();
+            const data3 = await controllerInstance2.getCounter();
 
             assert.strictEqual(data1, 1);
-            assert.strictEqual(data2, 1);
+            assert.strictEqual(data2, 2);
+            assert.strictEqual(data3, 1);
         });
     });
 });
