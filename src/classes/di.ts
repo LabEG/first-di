@@ -55,6 +55,27 @@ export class DI {
                         get: () => this.instance(type)
                     }
                 );
+            } else if (lifetTime === AutowiredLifetimes.PER_OWNED) {
+                const instance = this.instance(type);
+                Object.defineProperty(
+                    target,
+                    propertyKey,
+                    {
+                        configurable: false,
+                        enumerable: false,
+                        get: () => instance
+                    }
+                );
+            } else if (lifetTime === AutowiredLifetimes.PER_ACCESS) {
+                Object.defineProperty(
+                    target,
+                    propertyKey,
+                    {
+                        configurable: false,
+                        enumerable: false,
+                        get: () => this.instance(type)
+                    }
+                );
             } else {
                 throw new Error("Not implemented yet.");
             }
