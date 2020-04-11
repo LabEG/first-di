@@ -95,11 +95,13 @@ export class DI {
     }
 
     private makeSingleton(constructor: ClassConstructor): object {
+
         if (this.singletonsList.has(constructor)) {
             return this.singletonsList.get(constructor) as object;
         }
         const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) || [];
-        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => {
+
+        const object = new (constructor as (new (...params: object[]) => object))(...params.map((paramConstructor: ClassConstructor) => {
             if (this.overrideList.has(paramConstructor)) {
                 return this.singleton(this.overrideList.get(paramConstructor)?.to as ClassConstructor);
             }
@@ -112,7 +114,7 @@ export class DI {
 
     private makeInstance(constructor: ClassConstructor): object {
         const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) || [];
-        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => {
+        const object = new (constructor as (new (...params: object[]) => object))(...params.map((paramConstructor: ClassConstructor) => {
             if (this.overrideList.has(paramConstructor)) {
                 return this.instance(this.overrideList.get(paramConstructor)?.to as ClassConstructor);
             }
@@ -128,6 +130,7 @@ export class DI {
     }
 
     private makeOverride(from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions): void {
+        console.log("11111111111111", from, to, options);
         this.overrideList.set(from, { to, options });
     }
 

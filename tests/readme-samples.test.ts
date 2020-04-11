@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
 import("reflect-metadata"); // polyfill
@@ -8,11 +9,9 @@ describe("DI.ts", () => {
     describe("resolve dependencies", () => {
         afterEach(() => reset());
 
-        it.only("sample in easy mode", async () => {
-            // const { DemoController, DemoRepository, MockRepository } = await import("./controllers/EasySampleController");
-
-            @reflection
-            class DemoRepository {
+        it("sample in easy mode", async () => {
+            @reflection // typescript will generate reflection metadata
+            class ProdRepository { // default implementation
 
                 public async getData(): Promise<string> {
                     return await Promise.resolve("production");
@@ -21,7 +20,7 @@ describe("DI.ts", () => {
             }
 
             @reflection
-            class MockRepository implements DemoRepository {
+            class MockRepository implements ProdRepository { // mock implementation with same interface
 
                 public async getData(): Promise<string> {
                     return await Promise.resolve("mock");
@@ -30,39 +29,115 @@ describe("DI.ts", () => {
             }
 
             @reflection
-            class DemoService {
+            class ProdService {
 
                 // eslint-disable-next-line @typescript-eslint/no-parameter-properties
-                constructor(private readonly demoRepository: DemoRepository) { }
+                constructor(private readonly prodRepository: ProdRepository) { }
 
                 public async getData(): Promise<string> {
-                    return await this.demoRepository.getData();
+                    return await this.prodRepository.getData();
                 }
 
             }
 
-            class DemoController {
+            class ProdController {
 
-                @autowired()
-                private readonly demoService!: DemoService;
+                @autowired() // inject dependency
+                private readonly prodService!: ProdService;
 
                 public async getData(): Promise<string> {
-                    return await this.demoService.getData();
+                    return await this.prodService.getData();
                 }
 
             }
 
-            if (process.env.NODE_ENV === "development") {
-                override(DemoRepository, MockRepository);
+            if (process.env.NODE_ENV === "test") { // override in test environment
+                override(ProdRepository, MockRepository);
             }
 
-            const controllerInstance = new DemoController();
+            const controllerInstance = new ProdController(); // create intance by framework
             const data = await controllerInstance.getData();
 
-            if (process.env.NODE_ENV !== "development") {
-                assert.strictEqual(data, "production");
-            } else {
+            if (process.env.NODE_ENV === "test") {
                 assert.strictEqual(data, "mock");
+            } else {
+                assert.strictEqual(data, "production");
+            }
+        });
+
+        it.only("sample in pro mode", async () => {
+
+            abstract class AbstractRepository { // abstract instead of interface
+
+                abstract getData(): Promise<string>;
+
+            }
+
+            @reflection
+            class ProdRepository implements AbstractRepository {
+
+                public async getData(): Promise<string> {
+                    return await Promise.resolve("production");
+                }
+
+            }
+
+            @reflection
+            class MockRepository implements AbstractRepository {
+
+                public async getData(): Promise<string> {
+                    return await Promise.resolve("mock");
+                }
+
+            }
+
+            abstract class AbstractService { // abstract instead of interface
+
+                abstract getData(): Promise<string>;
+
+            }
+
+            @reflection
+            class ProdService implements AbstractService {
+
+                private readonly prodRepository: AbstractRepository;
+
+                constructor(prodRepository: AbstractRepository) {
+                    this.prodRepository = prodRepository;
+                }
+
+                public async getData(): Promise<string> {
+                    return await this.prodRepository.getData();
+                }
+
+            }
+
+            class ProdController {
+
+                @autowired()
+                private readonly prodService!: AbstractService;
+
+                public async getData(): Promise<string> {
+                    return await this.prodService.getData();
+                }
+
+            }
+
+            override(AbstractService, ProdService);
+
+            if (process.env.NODE_ENV === "test") {
+                override(AbstractRepository, ProdRepository);
+            } else {
+                override(AbstractRepository, MockRepository);
+            }
+
+            const controllerInstance = new ProdController();
+            const data = await controllerInstance.getData();
+
+            if (process.env.NODE_ENV === "test") {
+                assert.strictEqual(data, "mock");
+            } else {
+                assert.strictEqual(data, "production");
             }
         });
     });

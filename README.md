@@ -11,13 +11,13 @@ Description:
 
 Using in Easy mode:
 ------
- Simply write code as you used to and use @autowired() decorator to implement dependencies. And to override dependencies, огые use method override.
+ Simply write code as you used to and use @autowired() decorator to implement dependencies. And to override dependencies, just use method override.
 
 ```typescript
 import { autowired, override, reflection } from "first-di";
 
-@reflection // will generate reflection metadata
-class DemoRepository { // default implementation
+@reflection // typescript will generate reflection metadata
+class ProdRepository { // default implementation
 
     public async getData(): Promise<string> {
         return await Promise.resolve("production");
@@ -26,7 +26,7 @@ class DemoRepository { // default implementation
 }
 
 @reflection
-class MockRepository implements DemoRepository { // mock implementation with same interface
+class MockRepository implements ProdRepository { // mock implementation with same interface
 
     public async getData(): Promise<string> {
         return await Promise.resolve("mock");
@@ -35,32 +35,32 @@ class MockRepository implements DemoRepository { // mock implementation with sam
 }
 
 @reflection
-class DemoService {
+class ProdService {
 
-    constructor(private readonly demoRepository: DemoRepository) { }
+    constructor(private readonly prodRepository: ProdRepository) { }
 
     public async getData(): Promise<string> {
-        return await this.demoRepository.getData();
+        return await this.prodRepository.getData();
     }
 
 }
 
-class DemoController {
+class ProdController {
 
     @autowired() // inject dependency
-    private readonly demoService!: DemoService;
+    private readonly prodService!: ProdService;
 
     public async getData(): Promise<string> {
-        return await this.demoService.getData();
+        return await this.prodService.getData();
     }
 
 }
 
 if (process.env.NODE_ENV === "test") { // override in test environment
-    override(DemoRepository, MockRepository);
+    override(ProdRepository, MockRepository);
 }
 
-const controllerInstance = new DemoController(); // create intance by framework
+const controllerInstance = new ProdController(); // create intance by framework
 const data = await controllerInstance.getData();
 
 if (process.env.NODE_ENV === "test") {
@@ -75,10 +75,17 @@ Using in Pro mode:
  In professional mode Interfaces are used instead of implementations. But typescript does not generate Interfaces for working in runtime. But Interface is abstract base class. So instead of Interfaces, you need to write Abstract classes.
 
 ```typescript
+
 import { autowired, override, reflection } from "first-di";
 
+abstract class AbstractRepository { // abstract instead of interface
+
+    abstract getData(): Promise<string>;
+
+}
+
 @reflection
-class DemoRepository {
+class ProdRepository implements AbstractRepository {
 
     public async getData(): Promise<string> {
         return await Promise.resolve("production");
@@ -87,7 +94,7 @@ class DemoRepository {
 }
 
 @reflection
-class MockRepository implements DemoRepository {
+class MockRepository implements AbstractRepository {
 
     public async getData(): Promise<string> {
         return await Promise.resolve("mock");
@@ -95,37 +102,50 @@ class MockRepository implements DemoRepository {
 
 }
 
-@reflection
-class DemoService {
+abstract class AbstractService { // abstract instead of interface
 
-    // eslint-disable-next-line @typescript-eslint/no-parameter-properties
-    constructor(private readonly demoRepository: DemoRepository) { }
+    abstract getData(): Promise<string>;
+
+}
+
+@reflection
+class ProdService implements AbstractService {
+
+    private readonly prodRepository: AbstractRepository;
+
+    constructor(prodRepository: AbstractRepository) {
+        this.prodRepository = prodRepository;
+    }
 
     public async getData(): Promise<string> {
-        return await this.demoRepository.getData();
+        return await this.prodRepository.getData();
     }
 
 }
 
-class DemoController {
+class ProdController {
 
     @autowired()
-    private readonly demoService!: DemoService;
+    private readonly prodService!: AbstractService;
 
     public async getData(): Promise<string> {
-        return await this.demoService.getData();
+        return await this.prodService.getData();
     }
 
 }
 
-if (process.env.NODE_ENV === "development") {
-    override(DemoRepository, MockRepository);
+override(AbstractService, ProdService);
+
+if (process.env.NODE_ENV === "test") {
+    override(AbstractRepository, ProdRepository);
+} else {
+    override(AbstractRepository, MockRepository);
 }
 
-const controllerInstance = new DemoController();
+const controllerInstance = new ProdController();
 const data = await controllerInstance.getData();
 
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === "test") {
     assert.strictEqual(data, "mock");
 } else {
     assert.strictEqual(data, "production");
