@@ -47,7 +47,7 @@ export class DI {
             const type: ClassConstructor = (Reflect as any).getMetadata("design:type", target, propertyKey);
             const { resolve } = this;
 
-            Object.defineProperty(
+            Reflect.defineProperty(
                 target,
                 propertyKey,
                 {
