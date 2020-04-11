@@ -9,7 +9,7 @@ describe("DI.ts", () => {
     describe("resolve dependencies", () => {
         afterEach(() => reset());
 
-        it("sample in easy mode", async () => {
+        it("sample in easy mode", async() => {
             @reflection // typescript will generate reflection metadata
             class ProdRepository { // default implementation
 
@@ -65,8 +65,7 @@ describe("DI.ts", () => {
             }
         });
 
-        it.only("sample in pro mode", async () => {
-
+        it("sample in pro mode", async() => {
             abstract class AbstractRepository { // abstract instead of interface
 
                 abstract getData(): Promise<string>;

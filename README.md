@@ -151,3 +151,15 @@ if (process.env.NODE_ENV === "test") {
     assert.strictEqual(data, "production");
 }
 ```
+
+Options:
+------
+// todo: write documentation
+
+Scopes:
+------
+// todo: write documentation
+
+API:
+------
+// todo: write documentation
