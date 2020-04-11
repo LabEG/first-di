@@ -1,4 +1,5 @@
 export * from "./classes/di";
+export * from "./decorators/reflection";
 
 import { DI } from "./classes/di";
 export const {

@@ -2,23 +2,27 @@
 /* eslint-disable no-undef */
 import("reflect-metadata"); // polyfill
 import { assert } from "chai";
-import { reset } from "../src";
+import { reset, override } from "../src";
+import { ProductionRepository } from "./repositories/ProductionRepository";
+import { MockRepository } from "./repositories/MockRepository";
+import { AbstractRepository } from "./repositories/AbstractRepository";
+import { ImplMockRepository } from "./repositories/ImplMockRepository";
 
 describe("DI.ts", () => {
     describe("resolve dependencies", () => {
         afterEach(() => reset());
 
-        it("di must resolve dependecies", async() => {
+        it("di must resolve dependecies", async () => {
             const { Controller } = await import("./controllers/Controller");
 
             const controllerInstance = new Controller();
-            const dataFromRepository = await controllerInstance.getData();
+            const data = await controllerInstance.getData();
 
-            assert.strictEqual(dataFromRepository.serviceData, "production");
-            assert.strictEqual(dataFromRepository.repositoryData, "production");
+            assert.strictEqual(data.serviceData, "production");
+            assert.strictEqual(data.repositoryData, "production");
         });
 
-        it("di must create singleton services", async() => {
+        it("di must create singleton services", async () => {
             const { Controller } = await import("./controllers/Controller");
 
             const controllerInstance1 = new Controller();
@@ -31,7 +35,7 @@ describe("DI.ts", () => {
             assert.strictEqual(counter2, 2);
         });
 
-        it("di must reset state", async() => {
+        it("di must reset state", async () => {
             const { Controller } = await import("./controllers/Controller");
 
             const controllerInstance1 = new Controller();
@@ -46,7 +50,7 @@ describe("DI.ts", () => {
             assert.strictEqual(counter2, 1);
         });
 
-        it("di must support multiple scopes", async() => {
+        it("di must support multiple scopes", async () => {
             const { Controller } = await import("./controllers/ScopesController");
 
             const controllerInstance = new Controller();
@@ -57,7 +61,7 @@ describe("DI.ts", () => {
             assert.strictEqual(dataB, 1);
         });
 
-        it("di must support per instance injection", async() => {
+        it("di must support per instance injection", async () => {
             const { Controller } = await import("./controllers/PerInstanceController");
 
             const controllerInstance1 = new Controller();
@@ -70,5 +74,31 @@ describe("DI.ts", () => {
             assert.strictEqual(data2, 2);
             assert.strictEqual(data3, 1);
         });
+
+        it("di must override dependecy", async () => {
+
+            override(ProductionRepository, MockRepository);
+
+            const { Controller } = await import("./controllers/Controller");
+
+            const controllerInstance = new Controller();
+            const data = await controllerInstance.getData();
+
+            assert.strictEqual(data.serviceData, "production");
+            assert.strictEqual(data.repositoryData, "mock");
+        });
+
+        it("di must override dependecy", async() => {
+            override(AbstractRepository as any, ImplMockRepository);
+
+            const { Controller } = await import("./controllers/ImplController");
+
+            const controllerInstance = new Controller();
+            const data = await controllerInstance.getData();
+
+            assert.strictEqual(data.serviceData, "production");
+            assert.strictEqual(data.repositoryData, "mock");
+        });
+
     });
 });

@@ -99,7 +99,12 @@ export class DI {
             return this.singletonsList.get(constructor) as object;
         }
         const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) || [];
-        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => this.singleton(paramConstructor)));
+        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => {
+            if (this.overrideList.has(paramConstructor)) {
+                return this.singleton(this.overrideList.get(paramConstructor)?.to as ClassConstructor);
+            }
+            return this.singleton(paramConstructor);
+        }));
         this.singletonsList.set(constructor, object);
 
         return object;
@@ -107,7 +112,12 @@ export class DI {
 
     private makeInstance(constructor: ClassConstructor): object {
         const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) || [];
-        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => this.instance(paramConstructor)));
+        const object = new constructor(...params.map((paramConstructor: ClassConstructor) => {
+            if (this.overrideList.has(paramConstructor)) {
+                return this.instance(this.overrideList.get(paramConstructor)?.to as ClassConstructor);
+            }
+            return this.instance(paramConstructor);
+        }));
 
         return object;
     }
