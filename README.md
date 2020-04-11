@@ -207,7 +207,7 @@ API:
 
 Extension DI:
 ------
-First DI using OOP and SOLID design principles. Each part of DI can be overrided or extended after inheritance from the base class.
+First DI using OOP and SOLID design principles. Each part of DI can be overrided or extended after inheritance from base class.
 
 ```typescript
 import { DI } from "first-di";

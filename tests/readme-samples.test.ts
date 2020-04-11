@@ -1,3 +1,4 @@
+/* eslint-disable no-process-env */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
