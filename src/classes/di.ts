@@ -18,8 +18,8 @@ export class DI {
     public resolve: (constructor: ClassConstructor, options?: AutowiredOptions) => object;
     public override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
 
-    private singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
-    private overrideList: Map<ClassConstructor, OverrideOptions> = new Map<ClassConstructor, OverrideOptions>();
+    protected singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
+    protected overrideList: Map<ClassConstructor, OverrideOptions> = new Map<ClassConstructor, OverrideOptions>();
 
     constructor() {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
@@ -32,7 +32,7 @@ export class DI {
         ) => this.makeOverride(from, to, options);
     }
 
-    private makeAutowired(options?: AutowiredOptions): PropertyDecorator {
+    protected makeAutowired(options?: AutowiredOptions): PropertyDecorator {
         return (target: object, propertyKey: string | symbol): void => {
             const type: ClassConstructor = (Reflect as any).getMetadata("design:type", target, propertyKey);
 
@@ -48,7 +48,7 @@ export class DI {
         };
     }
 
-    private makeResolve(inConstructor: ClassConstructor, inOptions?: AutowiredOptions): object {
+    protected makeResolve(inConstructor: ClassConstructor, inOptions?: AutowiredOptions): object {
         let constructor = inConstructor;
         let options = inOptions;
 
@@ -77,12 +77,12 @@ export class DI {
         return object;
     }
 
-    private makeReset(): void {
+    protected makeReset(): void {
         this.singletonsList = new Map<ClassConstructor, object>();
         this.overrideList = new Map<ClassConstructor, OverrideOptions>();
     }
 
-    private makeOverride(from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions): void {
+    protected makeOverride(from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions): void {
         this.overrideList.set(from, { to, options });
     }
 

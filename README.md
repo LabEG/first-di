@@ -11,7 +11,7 @@ Description:
 
 Using in Easy mode:
 ------
- Simply write code as you used to and use @autowired() decorator to implement dependencies. And to override dependencies, just use method override.
+ Simply write code as you used to and use @autowired() decorator to implement dependencies. And for override dependencies just use method override.
 
 ```typescript
 import { autowired, override, reflection } from "first-di";
@@ -50,6 +50,8 @@ class ProdController {
     @autowired() // inject dependency
     private readonly prodService!: ProdService;
 
+    // constructor use library, don't use him for inject
+
     public async getData(): Promise<string> {
         return await this.prodService.getData();
     }
@@ -75,7 +77,6 @@ Using in Pro mode:
  In professional mode Interfaces are used instead of implementations. But typescript does not generate Interfaces for working in runtime. But Interface is abstract base class. So instead of Interfaces, you need to write Abstract classes.
 
 ```typescript
-
 import { autowired, override, reflection } from "first-di";
 
 abstract class AbstractRepository { // abstract instead of interface
@@ -128,6 +129,8 @@ class ProdController {
     @autowired()
     private readonly prodService!: AbstractService;
 
+    // constructor use library, don't use him for inject
+
     public async getData(): Promise<string> {
         return await this.prodService.getData();
     }
@@ -156,10 +159,62 @@ Options:
 ------
 // todo: write documentation
 
+- lifeTime - // todo: describe option
+
 Scopes:
 ------
-// todo: write documentation
+Support multiple scopes
+
+```typescript
+import { DI } from "first-di";
+import { ProductionService } from "../services/ProductionService";
+
+const scopeA = new DI();
+const scopeB = new DI();
+
+export class Controller {
+
+    @scopeA.autowired()
+    private readonly serviceScopeA!: ProductionService;
+
+    @scopeB.autowired()
+    private readonly serviceScopeB!: ProductionService;
+
+    // constructor use library, don't use him for inject
+
+    public async getDataScopeA(): Promise<string> {
+        return await this.serviceScopeA.getData();
+    }
+
+    public async getDataScopeB(): Promise<string> {
+        return await this.serviceScopeB.getData();
+    }
+
+}
+```
 
 API:
 ------
 // todo: write documentation
+
+- autowired - // todo: describe decorator
+- override - // todo: describe method
+- resolve - // todo: describe method
+- singleton - // todo: describe method
+- instance - // todo: describe method
+- reset - // todo: describe method
+
+Extension DI:
+------
+// todo: write documentation
+
+```typescript
+import { DI } from "first-di";
+
+class MyDI extends DI {
+    // extended method
+    public getAllSingletons(): IterableIterator<object> {
+        return this.singletonsList.values();
+    }
+}
+```
