@@ -8,7 +8,7 @@ Description:
 - For working this library needed Metadata Reflection API. If your platform (browser/nodejs) don't support it you must use polifyll. Example: [reflect-metadata](https://www.npmjs.com/package/reflect-metadata)
 - For working reflection should be enabled the option emitDecoratorMetadata and experimentalDecorators.
 - For generation reflection by typescript need to create any decorator or use @reflection decorator from this library
-- DI use Lazy Loading for resolve dependency. Each dependency will created only after request DI property.
+- DI uses Lazy Loading for resolve dependency. Each dependency will created only after request property with @autowired decorator.
 
 Using in Easy mode:
 ------
