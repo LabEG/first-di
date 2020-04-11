@@ -137,9 +137,9 @@ class ProdController {
 override(AbstractService, ProdService);
 
 if (process.env.NODE_ENV === "test") {
-    override(AbstractRepository, ProdRepository);
-} else {
     override(AbstractRepository, MockRepository);
+} else {
+    override(AbstractRepository, ProdRepository);
 }
 
 const controllerInstance = new ProdController();

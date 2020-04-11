@@ -95,7 +95,6 @@ export class DI {
     }
 
     private makeSingleton(constructor: ClassConstructor): object {
-
         if (this.singletonsList.has(constructor)) {
             return this.singletonsList.get(constructor) as object;
         }
