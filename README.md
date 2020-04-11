@@ -8,6 +8,7 @@ Description:
 - For working this library needed Metadata Reflection API. If your platform (browser/nodejs) don't support it you must use polifyll. Example: [reflect-metadata](https://www.npmjs.com/package/reflect-metadata)
 - For working reflection should be enabled the option emitDecoratorMetadata and experimentalDecorators.
 - For generation reflection by typescript need to create any decorator or use @reflection decorator from this library
+- DI use Lazy Loading for resolve dependency. Each dependency will created only after request DI property.
 
 Using in Easy mode:
 ------
@@ -206,7 +207,7 @@ API:
 
 Extension DI:
 ------
-// todo: write documentation
+First DI using OOP and SOLID design principles. Each part of DI can be overrided or extended after inheritance from the base class.
 
 ```typescript
 import { DI } from "first-di";
