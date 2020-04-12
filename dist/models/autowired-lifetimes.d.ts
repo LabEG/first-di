@@ -4,11 +4,11 @@ export declare const enum AutowiredLifetimes {
      */
     SINGLETON = 0,
     /**
-     * Create one instance for one resolver
+     * Create one instance for each resolver
      */
     PER_INSTANCE = 1,
     /**
-     * Create one instance for one type of resolver
+     * Create one instance for each type of resolver
      */
     PER_OWNED = 2,
     /**

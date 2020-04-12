@@ -6,5 +6,6 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./classes/di"));
 __export(require("./decorators/reflection"));
+__export(require("./models/autowired-lifetimes"));
 var di_1 = require("./classes/di");
 exports.autowired = (_a = new di_1.DI(), _a.autowired), exports.override = _a.override, exports.reset = _a.reset; // export as singleton
