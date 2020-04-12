@@ -7,13 +7,13 @@ export const enum AutowiredLifetimes {
     SINGLETON,
 
     /**
-     * Create one instance for one resolver
+     * Create one instance for each resolver
      */
 
     PER_INSTANCE,
 
     /**
-     * Create one instance for one type of resolver
+     * Create one instance for each type of resolver
      */
     PER_OWNED,
 
