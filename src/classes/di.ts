@@ -44,7 +44,7 @@ export class DI {
 
     protected makeAutowired(options?: AutowiredOptions): PropertyDecorator {
         return (target: object, propertyKey: string | symbol): void => {
-            const type: ClassConstructor = (Reflect as any).getMetadata("design:type", target, propertyKey);
+            const type: ClassConstructor = (Reflect as any).getMetadata("design:type", target, propertyKey) as ClassConstructor;
             const { resolve } = this;
 
             Reflect.defineProperty(
@@ -91,7 +91,7 @@ export class DI {
             }
         }
 
-        const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) || [];
+        const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) as [] || [];
 
         const object = new (constructor as (new (...params: object[]) => object))(...params
             .map((paramConstructor: ClassConstructor) => this.makeResolve(paramConstructor, options)));
