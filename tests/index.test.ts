@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 import("reflect-metadata"); // polyfill
 import { assert } from "chai";
-import { reset, override } from "../src";
+import { reset, override } from "../src/index";
 import { ProductionRepository } from "./repositories/ProductionRepository";
 import { MockRepository } from "./repositories/MockRepository";
 import { AbstractRepository } from "./repositories/AbstractRepository";
