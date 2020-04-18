@@ -21,7 +21,7 @@
         "packages:fullupdate": "ncu -u && npm run packages:reinstall",
         "cs:eslint": "eslint --fix -c .eslintrc.js --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",
         "test": "mocha --reporter spec --require ts-node/register tests/*.test.ts",
-        "build": "tsc --project tsconfigbuild.json",
+        "build": "rm -rf dist/ && tsc --project tsconfigbuild.json",
         "prepublishOnly": "npm run cs:eslint && npm run build && npm run test"
     },
     "repository": {
