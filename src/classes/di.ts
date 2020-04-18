@@ -15,14 +15,14 @@ export class DI {
 
     public autowired: (options?: AutowiredOptions) => PropertyDecorator;
     public reset: () => void;
-    public resolve: (
-        constructor: ClassConstructor,
+    public resolve: <T extends ClassConstructor>(
+        constructor: T,
         options?: AutowiredOptions,
         caller?: object,
         propertyKey?: string | symbol
-    ) => object;
-    public singleton: (constructor: ClassConstructor, options?: AutowiredOptions) => object;
-    public instance: (constructor: ClassConstructor, options?: AutowiredOptions) => object;
+    ) => T;
+    public singleton: <T extends ClassConstructor>(constructor: T, options?: AutowiredOptions) => T;
+    public instance: <T extends ClassConstructor>(constructor: T, options?: AutowiredOptions) => T;
     public override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
 
     protected singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
@@ -32,20 +32,20 @@ export class DI {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
         this.reset = () => this.makeReset();
 
-        this.resolve = (
-            constructor: ClassConstructor,
+        this.resolve = <T extends ClassConstructor>(
+            constructor: T,
             options?: AutowiredOptions,
             caller?: object,
             propertyKey?: string | symbol
         ) => this.makeResolve(constructor, options, caller, propertyKey);
 
-        this.singleton = (
-            constructor: ClassConstructor,
+        this.singleton = <T extends ClassConstructor>(
+            constructor: T,
             options?: AutowiredOptions
         ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.SINGLETON });
 
-        this.instance = (
-            constructor: ClassConstructor,
+        this.instance = <T extends ClassConstructor>(
+            constructor: T,
             options?: AutowiredOptions
         ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.PER_INSTANCE });
 
@@ -75,40 +75,40 @@ export class DI {
         };
     }
 
-    protected makeResolve(
-        inConstructor: ClassConstructor,
+    protected makeResolve<T extends ClassConstructor>(
+        inConstructor: T,
         inOptions?: AutowiredOptions,
         caller?: object,
         propertyKey?: string | symbol
-    ): object {
+    ): T {
         let constructor = inConstructor;
         let options = inOptions;
 
         if (this.overrideList.has(constructor)) {
             const overridOptions = this.overrideList.get(constructor) as OverrideOptions;
-            constructor = overridOptions.to;
+            constructor = overridOptions.to as T;
             options = overridOptions.options ?? options;
         }
 
         const lifeTime = options?.lifeTime ?? AutowiredLifetimes.SINGLETON;
         if (lifeTime === AutowiredLifetimes.SINGLETON) {
             if (this.singletonsList.has(constructor)) {
-                return this.singletonsList.get(constructor) as object;
+                return this.singletonsList.get(constructor) as T;
             }
         } else if (lifeTime === AutowiredLifetimes.PER_OWNED && propertyKey) {
             if (Reflect.has(constructor, this.getDiKey(propertyKey))) {
-                return Reflect.get(constructor, this.getDiKey(propertyKey)) as object;
+                return Reflect.get(constructor, this.getDiKey(propertyKey)) as T;
             }
         } else if (lifeTime === AutowiredLifetimes.PER_INSTANCE && caller && propertyKey) {
             if (Reflect.has(caller, this.getDiKey(propertyKey))) {
-                return Reflect.get(caller, this.getDiKey(propertyKey)) as object;
+                return Reflect.get(caller, this.getDiKey(propertyKey)) as T;
             }
         }
 
         const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) as [] || [];
 
         const object = new (constructor as (new (...params: object[]) => object))(...params
-            .map((paramConstructor: ClassConstructor) => this.makeResolve(paramConstructor, options)));
+            .map((paramConstructor: ClassConstructor) => this.makeResolve(paramConstructor, options))) as T;
 
         if (lifeTime === AutowiredLifetimes.SINGLETON) {
             this.singletonsList.set(constructor, object);
