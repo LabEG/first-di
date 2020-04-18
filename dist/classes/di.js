@@ -24,14 +24,15 @@ export class DI {
         };
     }
     makeResolve(inConstructor, inOptions, caller, propertyKey) {
+        var _a, _b;
         let constructor = inConstructor;
         let options = inOptions;
         if (this.overrideList.has(constructor)) {
             const overridOptions = this.overrideList.get(constructor);
             constructor = overridOptions.to;
-            options = overridOptions.options ?? options;
+            options = (_a = overridOptions.options) !== null && _a !== void 0 ? _a : options;
         }
-        const lifeTime = options?.lifeTime ?? 0 /* SINGLETON */;
+        const lifeTime = (_b = options === null || options === void 0 ? void 0 : options.lifeTime) !== null && _b !== void 0 ? _b : 0 /* SINGLETON */;
         if (lifeTime === 0 /* SINGLETON */) {
             if (this.singletonsList.has(constructor)) {
                 return this.singletonsList.get(constructor);
