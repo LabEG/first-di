@@ -6,5 +6,8 @@ import { DI } from "./classes/di";
 export const {
     autowired,
     override,
+    resolve,
+    singleton,
+    instance,
     reset
 } = new DI(); // export as singleton

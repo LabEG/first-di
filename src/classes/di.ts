@@ -21,6 +21,8 @@ export class DI {
         caller?: object,
         propertyKey?: string | symbol
     ) => object;
+    public singleton: (constructor: ClassConstructor, options?: AutowiredOptions) => object;
+    public instance: (constructor: ClassConstructor, options?: AutowiredOptions) => object;
     public override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
 
     protected singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
@@ -29,12 +31,24 @@ export class DI {
     constructor() {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
         this.reset = () => this.makeReset();
+
         this.resolve = (
             constructor: ClassConstructor,
             options?: AutowiredOptions,
             caller?: object,
             propertyKey?: string | symbol
         ) => this.makeResolve(constructor, options, caller, propertyKey);
+
+        this.singleton = (
+            constructor: ClassConstructor,
+            options?: AutowiredOptions
+        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.SINGLETON });
+
+        this.instance = (
+            constructor: ClassConstructor,
+            options?: AutowiredOptions
+        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.PER_INSTANCE });
+
         this.override = (
             from: ClassConstructor,
             to: ClassConstructor,
