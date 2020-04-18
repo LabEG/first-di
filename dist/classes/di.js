@@ -8,6 +8,8 @@ export class DI {
         this.autowired = (options) => this.makeAutowired(options);
         this.reset = () => this.makeReset();
         this.resolve = (constructor, options, caller, propertyKey) => this.makeResolve(constructor, options, caller, propertyKey);
+        this.singleton = (constructor, options) => this.makeResolve(constructor, Object.assign(Object.assign({}, options), { lifeTime: 0 /* SINGLETON */ }));
+        this.instance = (constructor, options) => this.makeResolve(constructor, Object.assign(Object.assign({}, options), { lifeTime: 1 /* PER_INSTANCE */ }));
         this.override = (from, to, options) => this.makeOverride(from, to, options);
     }
     makeAutowired(options) {

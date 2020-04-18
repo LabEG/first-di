@@ -6,6 +6,8 @@ export declare class DI {
     autowired: (options?: AutowiredOptions) => PropertyDecorator;
     reset: () => void;
     resolve: (constructor: ClassConstructor, options?: AutowiredOptions, caller?: object, propertyKey?: string | symbol) => object;
+    singleton: (constructor: ClassConstructor, options?: AutowiredOptions) => object;
+    instance: (constructor: ClassConstructor, options?: AutowiredOptions) => object;
     override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
     protected singletonsList: Map<ClassConstructor, object>;
     protected overrideList: Map<ClassConstructor, OverrideOptions>;
