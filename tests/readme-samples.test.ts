@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 import("reflect-metadata"); // polyfill
 import { assert } from "chai";
-import { reset, override, autowired, reflection } from "../src";
+import { reset, override, autowired, reflection } from "../src/index";
 
 describe("DI.ts", () => {
     describe("resolve dependencies", () => {

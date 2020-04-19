@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import { AutowiredOptions } from "../models/autowired-options";
-import { ClassConstructor } from "../typings/class-constructor";
+import { ClassConstructor, OverrideConstructor } from "../typings/class-constructor";
 import { AutowiredLifetimes } from "../models/autowired-lifetimes";
 import { OverrideOptions } from "../models/override-options";
 
@@ -15,50 +15,54 @@ export class DI {
 
     public autowired: (options?: AutowiredOptions) => PropertyDecorator;
     public reset: () => void;
-    public resolve: <T extends ClassConstructor>(
-        constructor: T,
+    public resolve: <T extends object>(
+        constructor: ClassConstructor<T>,
         options?: AutowiredOptions,
         caller?: object,
         propertyKey?: string | symbol
     ) => T;
-    public singleton: <T extends ClassConstructor>(constructor: T, options?: AutowiredOptions) => T;
-    public instance: <T extends ClassConstructor>(constructor: T, options?: AutowiredOptions) => T;
-    public override: (from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions) => void;
+    public singleton: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions) => T;
+    public instance: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions) => T;
+    public override: <T extends object>(
+        from: OverrideConstructor<object>, // must be T, but typescript have bug with private property from implement class
+        to: ClassConstructor<T>,
+        options?: AutowiredOptions
+    ) => void;
 
-    protected singletonsList: Map<ClassConstructor, object> = new Map<ClassConstructor, object>();
-    protected overrideList: Map<ClassConstructor, OverrideOptions> = new Map<ClassConstructor, OverrideOptions>();
+    protected singletonsList: Map<ClassConstructor<object>, object> = new Map<ClassConstructor<object>, object>();
+    protected overrideList: Map<OverrideConstructor<object>, OverrideOptions> = new Map<ClassConstructor<object>, OverrideOptions>();
 
     constructor() {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
         this.reset = () => this.makeReset();
 
-        this.resolve = <T extends ClassConstructor>(
-            constructor: T,
+        this.resolve = <T extends object>(
+            constructor: ClassConstructor<T>,
             options?: AutowiredOptions,
             caller?: object,
             propertyKey?: string | symbol
         ) => this.makeResolve(constructor, options, caller, propertyKey);
 
-        this.singleton = <T extends ClassConstructor>(
-            constructor: T,
+        this.singleton = <T extends object>(
+            constructor: ClassConstructor<T>,
             options?: AutowiredOptions
         ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.SINGLETON });
 
-        this.instance = <T extends ClassConstructor>(
-            constructor: T,
+        this.instance = <T extends object>(
+            constructor: ClassConstructor<T>,
             options?: AutowiredOptions
         ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.PER_INSTANCE });
 
-        this.override = (
-            from: ClassConstructor,
-            to: ClassConstructor,
+        this.override = <T extends object>(
+            from: OverrideConstructor<T>,
+            to: ClassConstructor<T>,
             options?: AutowiredOptions
         ) => this.makeOverride(from, to, options);
     }
 
     protected makeAutowired(options?: AutowiredOptions): PropertyDecorator {
         return (target: object, propertyKey: string | symbol): void => {
-            const type: ClassConstructor = (Reflect as any).getMetadata("design:type", target, propertyKey) as ClassConstructor;
+            const type = (Reflect as any).getMetadata("design:type", target, propertyKey) as ClassConstructor<object>;
             const { resolve } = this;
 
             Reflect.defineProperty(
@@ -75,8 +79,8 @@ export class DI {
         };
     }
 
-    protected makeResolve<T extends ClassConstructor>(
-        inConstructor: T,
+    protected makeResolve<T extends object>(
+        inConstructor: ClassConstructor<T>,
         inOptions?: AutowiredOptions,
         caller?: object,
         propertyKey?: string | symbol
@@ -86,7 +90,7 @@ export class DI {
 
         if (this.overrideList.has(constructor)) {
             const overridOptions = this.overrideList.get(constructor) as OverrideOptions;
-            constructor = overridOptions.to as T;
+            constructor = overridOptions.to as ClassConstructor<T>;
             options = overridOptions.options ?? options;
         }
 
@@ -105,10 +109,10 @@ export class DI {
             }
         }
 
-        const params: ClassConstructor[] = (Reflect as any).getMetadata("design:paramtypes", constructor) as [] || [];
+        const params: ClassConstructor<object>[] = (Reflect as any).getMetadata("design:paramtypes", constructor) as [] || [];
 
-        const object = new (constructor as (new (...params: object[]) => object))(...params
-            .map((paramConstructor: ClassConstructor) => this.makeResolve(paramConstructor, options))) as T;
+        const object = new constructor(...params
+            .map((paramConstructor: ClassConstructor<object>) => this.makeResolve(paramConstructor, options)));
 
         if (lifeTime === AutowiredLifetimes.SINGLETON) {
             this.singletonsList.set(constructor, object);
@@ -122,11 +126,11 @@ export class DI {
     }
 
     protected makeReset(): void {
-        this.singletonsList = new Map<ClassConstructor, object>();
-        this.overrideList = new Map<ClassConstructor, OverrideOptions>();
+        this.singletonsList = new Map<ClassConstructor<object>, object>();
+        this.overrideList = new Map<ClassConstructor<object>, OverrideOptions>();
     }
 
-    protected makeOverride(from: ClassConstructor, to: ClassConstructor, options?: AutowiredOptions): void {
+    protected makeOverride<T extends object>(from: OverrideConstructor<T>, to: ClassConstructor<T>, options?: AutowiredOptions): void {
         this.overrideList.set(from, { to, options });
     }
 
