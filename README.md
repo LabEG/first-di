@@ -28,7 +28,7 @@ class ProdRepository { // default implementation
 }
 
 @reflection
-class MockRepository implements ProdRepository { // mock implementation with same interface
+class MockRepository { // mock implementation with same interface
 
     public async getData(): Promise<string> {
         return await Promise.resolve("mock");
@@ -159,9 +159,21 @@ if (process.env.NODE_ENV === "test") {
 
 Options:
 ------
-// todo: write documentation
+First DI has several points for customizing dependency options.
+- **Global** - `DI.defaultOptions: AutowiredOptions`. Sets global default behavior.
+- **Autowired** - `@autowired(options?: AutowiredOptions)`. Sets behaviors for resolve dependencies.
+- **Override** - `override(fromClass, toClass, options?: AutowiredOptions)`. Sets behavior overrided dependency.
 
-- lifeTime - // todo: describe option
+AutowiredOptions has next properties:
+- **lifeTime: AutowiredLifetimes** - Sets lifeTime of dependecy.
+
+    SINGLETON - Create one instance for all resolvers.
+
+    PER_INSTANCE - Create one instance for one resolver instance. Also called ‘transient’ or ‘factory’ in other containers.
+
+    PER_OWNED - Create one instance for one type of resolver.
+
+    PER_ACCESS - Create new instance on each access to resolved property.
 
 Scopes:
 ------
