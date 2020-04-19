@@ -1,11 +1,11 @@
 {
     "name": "first-di",
-    "version": "0.1.7",
+    "version": "0.1.8",
     "description": "Easy dependency injection for typescript applications",
     "main": "./dist/index.js",
     "typings": "./dist/index.d.ts",
     "devDependencies": {
-        "@labeg/code-style": "^1.0.45",
+        "@labeg/code-style": "^1.0.46",
         "@types/chai": "^4.2.11",
         "@types/mocha": "^7.0.2",
         "@types/node": "^13.13.0",
