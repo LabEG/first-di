@@ -209,14 +209,37 @@ export class Controller {
 
 API:
 ------
-// todo: write documentation
+First DI also has an API for extended use. For example, use as A Service Locator.
 
-- autowired - // todo: describe decorator
-- override - // todo: describe method
-- resolve - // todo: describe method
-- singleton - // todo: describe method
-- instance - // todo: describe method
-- reset - // todo: describe method
+- autowired - Decorator. Assigned to property for resolve dependency.
+- override - Function. Override dependency and resolve options.
+- resolve - Function. Resolves dependence with default options or specified.
+- singleton - Function. Resolve singleton.
+- instance - Function. Resolve new instance.
+- reset - Function. Reset all singleton list and override list, but don.t reset global options.
+
+Resolve, singleton, instance - can be used to implement the Service Locator.
+
+```typescript
+import { singleton, instance, resolve, autowired, AutowiredLifetimes } from "first-di";
+
+class ApiDemo {
+
+    @autowired({ lifeTime: AutowiredLifetimes.SINGLETON })
+    private readonly service1!: ApiService1;
+
+    @autowired({ lifeTime: AutowiredLifetimes.PER_INSTANCE })
+    private readonly service2!: ApiService2;
+
+    private readonly service3: ApiService3 = resolve(ApiService3, { lifeTime: AutowiredLifetimes.PER_INSTANCE });
+
+    private readonly service4: ApiService4 = singleton(ApiService4);
+
+    private readonly service5: ApiService5 = instance(ApiService5);
+
+}
+```
+
 
 Extension DI:
 ------
