@@ -14,15 +14,20 @@ export class DI {
     };
 
     public autowired: (options?: AutowiredOptions) => PropertyDecorator;
+
     public reset: () => void;
+
     public resolve: <T extends object>(
         constructor: ClassConstructor<T>,
         options?: AutowiredOptions,
         caller?: object,
         propertyKey?: string | symbol
     ) => T;
+
     public singleton: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions) => T;
+
     public instance: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions) => T;
+
     public override: <T extends object>(
         from: OverrideConstructor<object>, // must be T, but typescript have bug with private property from implement class
         to: ClassConstructor<T>,
@@ -30,6 +35,7 @@ export class DI {
     ) => void;
 
     protected singletonsList: Map<ClassConstructor<object>, object> = new Map<ClassConstructor<object>, object>();
+
     protected overrideList: Map<OverrideConstructor<object>, OverrideOptions> = new Map<ClassConstructor<object>, OverrideOptions>();
 
     constructor() {

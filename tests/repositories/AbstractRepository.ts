@@ -5,6 +5,7 @@ import { reflection } from "../../src/decorators/reflection";
 export abstract class AbstractRepository {
 
     public abstract async getCounter(): Promise<number>;
+
     public abstract async getData(): Promise<TestModel>;
 
 }
