@@ -4,7 +4,7 @@ import { ProductionService } from "../services/ProductionService";
 
 export class Controller {
 
-    @autowired({ lifeTime: AutowiredLifetimes.PER_INSTANCE })
+    @autowired({ lifeTime: AutowiredLifetimes.PerInstance })
     private readonly productionService!: ProductionService;
 
     // constructor use library, don't use him for inject

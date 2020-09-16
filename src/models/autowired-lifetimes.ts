@@ -1,24 +1,24 @@
-export const enum AutowiredLifetimes {
+export enum AutowiredLifetimes {
 
     /**
      * Create one instance for all resolvers
      */
 
-    SINGLETON,
+    Singleton = 0,
 
     /**
      * Create one instance for each resolver
      */
 
-    PER_INSTANCE,
+    PerInstance = 1,
 
     /**
      * Create one instance for each type of resolver
      */
-    PER_OWNED,
+    PerOwned = 2,
 
     /**
      * Recreate each dependency on each access to dependency
      */
-    PER_ACCESS
+    PerAccess = 3
 }

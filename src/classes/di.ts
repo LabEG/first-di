@@ -10,7 +10,7 @@ import { OverrideOptions } from "../models/override-options";
 export class DI {
 
     public static defaultOptions: AutowiredOptions = {
-        lifeTime: AutowiredLifetimes.SINGLETON
+        lifeTime: AutowiredLifetimes.Singleton
     };
 
     public autowired: (options?: AutowiredOptions) => PropertyDecorator;
@@ -52,12 +52,12 @@ export class DI {
         this.singleton = <T extends object>(
             constructor: ClassConstructor<T>,
             options?: AutowiredOptions
-        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.SINGLETON });
+        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.Singleton });
 
         this.instance = <T extends object>(
             constructor: ClassConstructor<T>,
             options?: AutowiredOptions
-        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.PER_INSTANCE });
+        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.PerInstance });
 
         this.override = <T extends object>(
             from: OverrideConstructor<T>,
@@ -100,16 +100,16 @@ export class DI {
             options = overridOptions.options ?? options;
         }
 
-        const lifeTime = options?.lifeTime ?? AutowiredLifetimes.SINGLETON;
-        if (lifeTime === AutowiredLifetimes.SINGLETON) {
+        const lifeTime = options?.lifeTime ?? AutowiredLifetimes.Singleton;
+        if (lifeTime === AutowiredLifetimes.Singleton) {
             if (this.singletonsList.has(constructor)) {
                 return this.singletonsList.get(constructor) as T;
             }
-        } else if (lifeTime === AutowiredLifetimes.PER_OWNED && propertyKey) {
+        } else if (lifeTime === AutowiredLifetimes.PerOwned && propertyKey) {
             if (Reflect.has(constructor, this.getDiKey(propertyKey))) {
                 return Reflect.get(constructor, this.getDiKey(propertyKey)) as T;
             }
-        } else if (lifeTime === AutowiredLifetimes.PER_INSTANCE && caller && propertyKey) {
+        } else if (lifeTime === AutowiredLifetimes.PerInstance && caller && propertyKey) {
             if (Reflect.has(caller, this.getDiKey(propertyKey))) {
                 return Reflect.get(caller, this.getDiKey(propertyKey)) as T;
             }
@@ -120,11 +120,11 @@ export class DI {
         const object = new constructor(...params
             .map((paramConstructor: ClassConstructor<object>) => this.makeResolve(paramConstructor, options)));
 
-        if (lifeTime === AutowiredLifetimes.SINGLETON) {
+        if (lifeTime === AutowiredLifetimes.Singleton) {
             this.singletonsList.set(constructor, object);
-        } else if (lifeTime === AutowiredLifetimes.PER_OWNED) {
+        } else if (lifeTime === AutowiredLifetimes.PerOwned) {
             Reflect.set(constructor, this.getDiKey(propertyKey), object);
-        } else if (lifeTime === AutowiredLifetimes.PER_INSTANCE && caller) {
+        } else if (lifeTime === AutowiredLifetimes.PerInstance && caller) {
             Reflect.set(caller, this.getDiKey(propertyKey), object);
         }
 
