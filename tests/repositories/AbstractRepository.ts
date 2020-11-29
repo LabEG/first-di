@@ -4,8 +4,8 @@ import { reflection } from "../../src/decorators/reflection";
 @reflection
 export abstract class AbstractRepository {
 
-    public abstract async getCounter(): Promise<number>;
+    public abstract getCounter(): Promise<number>;
 
-    public abstract async getData(): Promise<TestModel>;
+    public abstract getData(): Promise<TestModel>;
 
 }
