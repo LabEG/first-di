@@ -8,7 +8,9 @@ import { reset, override, autowired, reflection } from "../src/index";
 
 describe("DI.ts", () => {
     describe("resolve dependencies", () => {
-        afterEach(() => reset());
+        afterEach(() => {
+            reset();
+        });
 
         it("sample in easy mode", async() => {
             @reflection // typescript will generate reflection metadata

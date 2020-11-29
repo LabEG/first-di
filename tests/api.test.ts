@@ -6,7 +6,9 @@ import { resolve, singleton, instance, reset } from "../src/index";
 
 describe("DI.ts", () => {
     describe("api", () => {
-        afterEach(() => reset());
+        afterEach(() => {
+            reset();
+        });
 
         it("di must provide singleton api", async() => {
             const { ProductionService } = await import("./services/ProductionService");

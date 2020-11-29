@@ -40,7 +40,9 @@ export class DI {
 
     constructor() {
         this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
-        this.reset = () => this.makeReset();
+        this.reset = () => {
+            this.makeReset();
+        };
 
         this.resolve = <T extends object>(
             constructor: ClassConstructor<T>,
@@ -63,7 +65,9 @@ export class DI {
             from: OverrideConstructor<T>,
             to: ClassConstructor<T>,
             options?: AutowiredOptions
-        ) => this.makeOverride(from, to, options);
+        ) => {
+            this.makeOverride(from, to, options);
+        };
     }
 
     protected makeAutowired(options?: AutowiredOptions): PropertyDecorator {

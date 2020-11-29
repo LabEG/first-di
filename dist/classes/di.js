@@ -7,11 +7,15 @@ export class DI {
         this.singletonsList = new Map();
         this.overrideList = new Map();
         this.autowired = (options) => this.makeAutowired(options);
-        this.reset = () => this.makeReset();
+        this.reset = () => {
+            this.makeReset();
+        };
         this.resolve = (constructor, options, caller, propertyKey) => this.makeResolve(constructor, options, caller, propertyKey);
         this.singleton = (constructor, options) => this.makeResolve(constructor, Object.assign(Object.assign({}, options), { lifeTime: AutowiredLifetimes.Singleton }));
         this.instance = (constructor, options) => this.makeResolve(constructor, Object.assign(Object.assign({}, options), { lifeTime: AutowiredLifetimes.PerInstance }));
-        this.override = (from, to, options) => this.makeOverride(from, to, options);
+        this.override = (from, to, options) => {
+            this.makeOverride(from, to, options);
+        };
     }
     makeAutowired(options) {
         return (target, propertyKey) => {

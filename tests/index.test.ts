@@ -10,7 +10,9 @@ import { ImplMockRepository } from "./repositories/ImplMockRepository";
 
 describe("DI.ts", () => {
     describe("resolve dependencies", () => {
-        afterEach(() => reset());
+        afterEach(() => {
+            reset();
+        });
 
         it("di must resolve dependecies", async() => {
             const { Controller } = await import("./controllers/Controller");
