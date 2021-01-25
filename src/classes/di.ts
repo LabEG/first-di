@@ -99,7 +99,8 @@ export class DI {
         let options = inOptions;
 
         if (this.overrideList.has(constructor)) {
-            const overridOptions = this.overrideList.get(constructor) as OverrideOptions;
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const overridOptions = this.overrideList.get(constructor)!;
             constructor = overridOptions.to as ClassConstructor<T>;
             options = overridOptions.options ?? options;
         }
