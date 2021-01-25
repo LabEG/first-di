@@ -1,11 +1,11 @@
 {
     "name": "first-di",
-    "version": "0.1.29",
+    "version": "0.1.30",
     "lockfileVersion": 2,
     "requires": true,
     "packages": {
         "": {
-            "version": "0.1.29",
+            "version": "0.1.30",
             "license": "MIT",
             "devDependencies": {
                 "@labeg/code-style": "^1.0.86",
