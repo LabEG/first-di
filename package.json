@@ -6,20 +6,17 @@
     "module": "./dist/index.js",
     "typings": "./dist/index.d.ts",
     "devDependencies": {
-        "@labeg/code-style": "^1.0.90",
-        "@types/chai": "^4.2.15",
-        "@types/mocha": "^8.2.0",
-        "@types/node": "^14.14.26",
-        "chai": "^4.3.0",
-        "mocha": "^8.3.0",
+        "@labeg/code-style": "^2.0.8",
+        "@types/chai": "^4.2.18",
+        "@types/mocha": "^8.2.2",
+        "@types/node": "^15.12.2",
+        "chai": "^4.3.4",
+        "mocha": "^9.0.1",
         "reflect-metadata": "^0.1.13",
-        "ts-node": "^9.1.1",
-        "typescript": "^4.1.5"
+        "ts-node": "^10.0.0",
+        "typescript": "^4.3.4"
     },
     "scripts": {
-        "packages:manupdate": "rm -rf node_modules && npm install",
-        "packages:reinstall": "rm -rf npm-shrinkwrap.json && rm -rf node_modules && npm install && npm dedupe && npm prune && npm shrinkwrap",
-        "packages:fullupdate": "ncu -u && npm run packages:reinstall",
         "cs:eslint": "eslint --fix -c .eslintrc.js --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",
         "test": "mocha --reporter spec --require ts-node/register tests/*.test.ts",
         "build": "rm -rf dist/ && tsc --project tsconfigbuild.json",
