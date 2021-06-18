@@ -1,11 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable max-statements */
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import { AutowiredOptions } from "../models/autowired-options";
-import { ClassConstructor, OverrideConstructor } from "../typings/class-constructor";
-import { AutowiredLifetimes } from "../models/autowired-lifetimes";
-import { OverrideOptions } from "../models/override-options";
+import type {AutowiredOptions} from "../models/autowired-options";
+import type {ClassConstructor, OverrideConstructor} from "../typings/class-constructor";
+import {AutowiredLifetimes} from "../models/autowired-lifetimes";
+import type {OverrideOptions} from "../models/override-options";
 
 export class DI {
 
@@ -29,7 +33,7 @@ export class DI {
     public instance: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions) => T;
 
     public override: <T extends object>(
-        from: OverrideConstructor<object>, // must be T, but typescript have bug with private property from implement class
+        from: OverrideConstructor<object>, // Must be T, but typescript have bug with private property from implement class
         to: ClassConstructor<T>,
         options?: AutowiredOptions
     ) => void;
@@ -38,9 +42,9 @@ export class DI {
 
     protected overrideList: Map<OverrideConstructor<object>, OverrideOptions> = new Map<ClassConstructor<object>, OverrideOptions>();
 
-    constructor() {
-        this.autowired = (options?: AutowiredOptions) => this.makeAutowired(options);
-        this.reset = () => {
+    public constructor () {
+        this.autowired = (options?: AutowiredOptions): PropertyDecorator => this.makeAutowired(options);
+        this.reset = (): void => {
             this.makeReset();
         };
 
@@ -49,31 +53,33 @@ export class DI {
             options?: AutowiredOptions,
             caller?: object,
             propertyKey?: string | symbol
-        ) => this.makeResolve(constructor, options, caller, propertyKey);
+        ): T => this.makeResolve(constructor, options, caller, propertyKey);
 
         this.singleton = <T extends object>(
             constructor: ClassConstructor<T>,
             options?: AutowiredOptions
-        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.Singleton });
+        ): T => this.makeResolve(constructor, {...options,
+            lifeTime: AutowiredLifetimes.Singleton});
 
         this.instance = <T extends object>(
             constructor: ClassConstructor<T>,
             options?: AutowiredOptions
-        ) => this.makeResolve(constructor, { ...options, lifeTime: AutowiredLifetimes.PerInstance });
+        ): T => this.makeResolve(constructor, {...options,
+            lifeTime: AutowiredLifetimes.PerInstance});
 
         this.override = <T extends object>(
             from: OverrideConstructor<T>,
             to: ClassConstructor<T>,
             options?: AutowiredOptions
-        ) => {
+        ): void => {
             this.makeOverride(from, to, options);
         };
     }
 
-    protected makeAutowired(options?: AutowiredOptions): PropertyDecorator {
+    protected makeAutowired (options?: AutowiredOptions): PropertyDecorator {
         return (target: object, propertyKey: string | symbol): void => {
             const type = (Reflect as any).getMetadata("design:type", target, propertyKey) as ClassConstructor<object>;
-            const { resolve } = this;
+            const {resolve} = this;
 
             Reflect.defineProperty(
                 target,
@@ -81,7 +87,7 @@ export class DI {
                 {
                     configurable: false,
                     enumerable: false,
-                    get() {
+                    get () {
                         return resolve(type, options, this, propertyKey);
                     }
                 }
@@ -136,17 +142,18 @@ export class DI {
         return object;
     }
 
-    protected makeReset(): void {
+    protected makeReset (): void {
         this.singletonsList = new Map<ClassConstructor<object>, object>();
         this.overrideList = new Map<ClassConstructor<object>, OverrideOptions>();
     }
 
     protected makeOverride<T extends object>(from: OverrideConstructor<T>, to: ClassConstructor<T>, options?: AutowiredOptions): void {
-        this.overrideList.set(from, { to, options });
+        this.overrideList.set(from, {to,
+            options});
     }
 
-    protected getDiKey(propertyKey?: string | symbol): string {
-        return `$_di_${String(propertyKey)}`; // think about symbol
+    protected getDiKey (propertyKey?: string | symbol): string {
+        return `$_di_${String(propertyKey)}`; // Think about symbol
     }
 
 }

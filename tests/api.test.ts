@@ -1,8 +1,8 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
-import("reflect-metadata"); // polyfill
-import { assert } from "chai";
-import { resolve, singleton, instance, reset } from "../src/index";
+import("reflect-metadata"); // Polyfill
+import {assert} from "chai";
+import {resolve, singleton, instance, reset} from "../src/index";
 
 describe("DI.ts", () => {
     describe("api", () => {
@@ -10,8 +10,8 @@ describe("DI.ts", () => {
             reset();
         });
 
-        it("di must provide singleton api", async() => {
-            const { ProductionService } = await import("./services/ProductionService");
+        it("di must provide singleton api", async () => {
+            const {ProductionService} = await import("./services/ProductionService");
 
             const singleton1 = singleton(ProductionService);
             const singleton2 = singleton(ProductionService);
@@ -23,8 +23,8 @@ describe("DI.ts", () => {
             assert.isBoolean(singleton1 === singleton2);
         });
 
-        it("di must provide resolve api", async() => {
-            const { ProductionService } = await import("./services/ProductionService");
+        it("di must provide resolve api", async () => {
+            const {ProductionService} = await import("./services/ProductionService");
 
             const singleton1 = resolve(ProductionService);
             const singleton2 = resolve(ProductionService);
@@ -32,8 +32,8 @@ describe("DI.ts", () => {
             assert.isBoolean(singleton1 === singleton2);
         });
 
-        it("di must provide instance api", async() => {
-            const { ProductionService } = await import("./services/ProductionService");
+        it("di must provide instance api", async () => {
+            const {ProductionService} = await import("./services/ProductionService");
 
             const singleton1 = instance(ProductionService);
             const singleton2 = instance(ProductionService);

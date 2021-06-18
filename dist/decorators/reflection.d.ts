@@ -1,1 +1,1 @@
-export declare const reflection: (..._params: Object[]) => void;
+export declare const reflection: () => void;

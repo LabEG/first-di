@@ -2,7 +2,7 @@ export * from "./classes/di";
 export * from "./decorators/reflection";
 export * from "./models/autowired-lifetimes";
 
-import { DI } from "./classes/di";
+import {DI} from "./classes/di";
 export const {
     autowired,
     override,
@@ -10,4 +10,4 @@ export const {
     singleton,
     instance,
     reset
-} = new DI(); // export as singleton
+} = new DI(); // Export as singleton

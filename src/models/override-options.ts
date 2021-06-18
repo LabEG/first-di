@@ -1,5 +1,6 @@
-import { ClassConstructor } from "../typings/class-constructor";
-import { AutowiredOptions } from "./autowired-options";
+/* eslint-disable @typescript-eslint/ban-types */
+import type {ClassConstructor} from "../typings/class-constructor";
+import type {AutowiredOptions} from "./autowired-options";
 
 export interface OverrideOptions {
     to: ClassConstructor<object>;

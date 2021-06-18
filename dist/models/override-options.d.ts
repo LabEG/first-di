@@ -1,5 +1,5 @@
-import { ClassConstructor } from "../typings/class-constructor";
-import { AutowiredOptions } from "./autowired-options";
+import type { ClassConstructor } from "../typings/class-constructor";
+import type { AutowiredOptions } from "./autowired-options";
 export interface OverrideOptions {
     to: ClassConstructor<object>;
     options?: AutowiredOptions;

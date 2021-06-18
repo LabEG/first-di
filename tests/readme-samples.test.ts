@@ -1,10 +1,9 @@
-/* eslint-disable no-process-env */
+/* eslint-disable max-statements */
 /* eslint-disable max-classes-per-file */
-/* eslint-disable no-shadow */
-/* eslint-disable no-undef */
-import("reflect-metadata"); // polyfill
-import { assert } from "chai";
-import { reset, override, autowired, reflection } from "../src/index";
+/* eslint-disable max-lines-per-function */
+import("reflect-metadata"); // Polyfill
+import {assert} from "chai";
+import {reset, override, autowired, reflection} from "../src/index";
 
 describe("DI.ts", () => {
     describe("resolve dependencies", () => {
@@ -12,21 +11,21 @@ describe("DI.ts", () => {
             reset();
         });
 
-        it("sample in easy mode", async() => {
-            @reflection // typescript will generate reflection metadata
-            class ProdRepository { // default implementation
+        it("sample in easy mode", async () => {
+            @reflection // Typescript will generate reflection metadata
+            class ProdRepository { // Default implementation
 
-                public async getData(): Promise<string> {
-                    return await Promise.resolve("production");
+                public async getData (): Promise<string> {
+                    return Promise.resolve("production");
                 }
 
             }
 
             @reflection
-            class MockRepository implements ProdRepository { // mock implementation with same interface
+            class MockRepository implements ProdRepository { // Mock implementation with same interface
 
-                public async getData(): Promise<string> {
-                    return await Promise.resolve("mock");
+                public async getData (): Promise<string> {
+                    return Promise.resolve("mock");
                 }
 
             }
@@ -35,30 +34,30 @@ describe("DI.ts", () => {
             class ProdService {
 
                 // eslint-disable-next-line @typescript-eslint/no-parameter-properties
-                constructor(private readonly prodRepository: ProdRepository) { }
+                public constructor (private readonly prodRepository: ProdRepository) { }
 
-                public async getData(): Promise<string> {
-                    return await this.prodRepository.getData();
+                public async getData (): Promise<string> {
+                    return this.prodRepository.getData();
                 }
 
             }
 
             class ProdController {
 
-                @autowired() // inject dependency
+                @autowired() // Inject dependency
                 private readonly prodService!: ProdService;
 
-                public async getData(): Promise<string> {
-                    return await this.prodService.getData();
+                public async getData (): Promise<string> {
+                    return this.prodService.getData();
                 }
 
             }
 
-            if (process.env.NODE_ENV === "test") { // override in test environment
+            if (process.env.NODE_ENV === "test") { // Override in test environment
                 override(ProdRepository, MockRepository);
             }
 
-            const controllerInstance = new ProdController(); // create intance by framework
+            const controllerInstance = new ProdController(); // Create intance by framework
             const data = await controllerInstance.getData();
 
             if (process.env.NODE_ENV === "test") {
@@ -68,18 +67,18 @@ describe("DI.ts", () => {
             }
         });
 
-        it("sample in pro mode", async() => {
-            abstract class AbstractRepository { // abstract instead of interface
+        it("sample in pro mode", async () => {
+            abstract class AbstractRepository { // Abstract instead of interface
 
-                abstract getData(): Promise<string>;
+                abstract getData (): Promise<string>;
 
             }
 
             @reflection
             class ProdRepository implements AbstractRepository {
 
-                public async getData(): Promise<string> {
-                    return await Promise.resolve("production");
+                public async getData (): Promise<string> {
+                    return Promise.resolve("production");
                 }
 
             }
@@ -87,15 +86,15 @@ describe("DI.ts", () => {
             @reflection
             class MockRepository implements AbstractRepository {
 
-                public async getData(): Promise<string> {
-                    return await Promise.resolve("mock");
+                public async getData (): Promise<string> {
+                    return Promise.resolve("mock");
                 }
 
             }
 
-            abstract class AbstractService { // abstract instead of interface
+            abstract class AbstractService { // Abstract instead of interface
 
-                abstract getData(): Promise<string>;
+                abstract getData (): Promise<string>;
 
             }
 
@@ -104,12 +103,12 @@ describe("DI.ts", () => {
 
                 private readonly prodRepository: AbstractRepository;
 
-                constructor(prodRepository: AbstractRepository) {
+                public constructor (prodRepository: AbstractRepository) {
                     this.prodRepository = prodRepository;
                 }
 
-                public async getData(): Promise<string> {
-                    return await this.prodRepository.getData();
+                public async getData (): Promise<string> {
+                    return this.prodRepository.getData();
                 }
 
             }
@@ -119,8 +118,8 @@ describe("DI.ts", () => {
                 @autowired()
                 private readonly prodService!: AbstractService;
 
-                public async getData(): Promise<string> {
-                    return await this.prodService.getData();
+                public async getData (): Promise<string> {
+                    return this.prodService.getData();
                 }
 
             }

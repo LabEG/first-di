@@ -1,6 +1,6 @@
-import { AutowiredOptions } from "../models/autowired-options";
-import { ClassConstructor, OverrideConstructor } from "../typings/class-constructor";
-import { OverrideOptions } from "../models/override-options";
+import type { AutowiredOptions } from "../models/autowired-options";
+import type { ClassConstructor, OverrideConstructor } from "../typings/class-constructor";
+import type { OverrideOptions } from "../models/override-options";
 export declare class DI {
     static defaultOptions: AutowiredOptions;
     autowired: (options?: AutowiredOptions) => PropertyDecorator;
@@ -8,7 +8,7 @@ export declare class DI {
     resolve: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions, caller?: object, propertyKey?: string | symbol) => T;
     singleton: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions) => T;
     instance: <T extends object>(constructor: ClassConstructor<T>, options?: AutowiredOptions) => T;
-    override: <T extends object>(from: OverrideConstructor<object>, // must be T, but typescript have bug with private property from implement class
+    override: <T extends object>(from: OverrideConstructor<object>, // Must be T, but typescript have bug with private property from implement class
     to: ClassConstructor<T>, options?: AutowiredOptions) => void;
     protected singletonsList: Map<ClassConstructor<object>, object>;
     protected overrideList: Map<OverrideConstructor<object>, OverrideOptions>;

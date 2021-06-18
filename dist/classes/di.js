@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable max-statements */
+/* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -75,10 +79,11 @@ export class DI {
         this.overrideList = new Map();
     }
     makeOverride(from, to, options) {
-        this.overrideList.set(from, { to, options });
+        this.overrideList.set(from, { to,
+            options });
     }
     getDiKey(propertyKey) {
-        return `$_di_${String(propertyKey)}`; // think about symbol
+        return `$_di_${String(propertyKey)}`; // Think about symbol
     }
 }
 DI.defaultOptions = {

@@ -1,4 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars-experimental
-export const reflection = (..._params: Object[]): void => {
-    // for generation reflection by typescript
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+export const reflection = (..._params: unknown[]): void => {
+    // For generation reflection by typescript
 };
