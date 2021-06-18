@@ -1,1 +1,1 @@
-export declare const reflection: () => void;
+export declare const reflection: (..._params: unknown[]) => void;
