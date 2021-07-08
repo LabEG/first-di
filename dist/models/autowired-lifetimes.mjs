@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AutowiredLifetimes = void 0;
-var AutowiredLifetimes;
+export var AutowiredLifetimes;
 (function (AutowiredLifetimes) {
     /**
      * Create one instance for all resolvers
@@ -19,4 +16,4 @@ var AutowiredLifetimes;
      * Recreate each dependency on each access to dependency
      */
     AutowiredLifetimes[AutowiredLifetimes["PerAccess"] = 3] = "PerAccess";
-})(AutowiredLifetimes = exports.AutowiredLifetimes || (exports.AutowiredLifetimes = {}));
+})(AutowiredLifetimes || (AutowiredLifetimes = {}));
