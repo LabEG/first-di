@@ -70,7 +70,7 @@ describe("DI.ts", () => {
         it("sample in pro mode", async () => {
             abstract class AbstractRepository { // Abstract instead of interface
 
-                abstract getData (): Promise<string>;
+                public abstract getData (): Promise<string>;
 
             }
 
@@ -94,7 +94,7 @@ describe("DI.ts", () => {
 
             abstract class AbstractService { // Abstract instead of interface
 
-                abstract getData (): Promise<string>;
+                public abstract getData (): Promise<string>;
 
             }
 
