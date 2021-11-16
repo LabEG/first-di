@@ -1,6 +1,6 @@
 {
     "name": "first-di",
-    "version": "0.1.39",
+    "version": "0.1.40",
     "description": "Easy dependency injection for typescript applications",
     "main": "./dist/index.js",
     "module": "./dist/index.mjs",
