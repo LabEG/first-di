@@ -6,7 +6,7 @@
     "module": "./dist/index.mjs",
     "typings": "./dist/index.d.ts",
     "devDependencies": {
-        "@labeg/code-style": "^2.0.30",
+        "@labeg/code-style": "^2.0.31",
         "@types/chai": "^4.3.0",
         "@types/mocha": "^9.1.0",
         "@types/node": "^17.0.21",
