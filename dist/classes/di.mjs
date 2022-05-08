@@ -1,10 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable max-statements */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+import "reflect-metadata";
 import { AutowiredLifetimes } from "../models/autowired-lifetimes";
 export class DI {
     constructor() {
@@ -34,8 +28,9 @@ export class DI {
             });
         };
     }
+    // eslint-disable-next-line max-statements
     makeResolve(inConstructor, inOptions, caller, propertyKey) {
-        var _a, _b;
+        var _a, _b, _c;
         let constructor = inConstructor;
         let options = inOptions;
         if (this.overrideList.has(constructor)) {
@@ -50,17 +45,18 @@ export class DI {
                 return this.singletonsList.get(constructor);
             }
         }
-        else if (lifeTime === AutowiredLifetimes.PerOwned && propertyKey) {
+        else if (lifeTime === AutowiredLifetimes.PerOwned && Boolean(propertyKey)) {
             if (Reflect.has(constructor, this.getDiKey(propertyKey))) {
                 return Reflect.get(constructor, this.getDiKey(propertyKey));
             }
         }
-        else if (lifeTime === AutowiredLifetimes.PerInstance && caller && propertyKey) {
+        else if (lifeTime === AutowiredLifetimes.PerInstance && caller && Boolean(propertyKey)) {
             if (Reflect.has(caller, this.getDiKey(propertyKey))) {
                 return Reflect.get(caller, this.getDiKey(propertyKey));
             }
         }
-        const params = Reflect.getMetadata("design:paramtypes", constructor) || [];
+        const params = (_c = Reflect
+            .getMetadata("design:paramtypes", constructor)) !== null && _c !== void 0 ? _c : [];
         const object = new constructor(...params
             .map((paramConstructor) => this.makeResolve(paramConstructor, options)));
         if (lifeTime === AutowiredLifetimes.Singleton) {

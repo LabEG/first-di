@@ -1,13 +1,7 @@
 "use strict";
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable max-statements */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DI = void 0;
+require("reflect-metadata");
 const autowired_lifetimes_1 = require("../models/autowired-lifetimes");
 class DI {
     constructor() {
@@ -37,8 +31,9 @@ class DI {
             });
         };
     }
+    // eslint-disable-next-line max-statements
     makeResolve(inConstructor, inOptions, caller, propertyKey) {
-        var _a, _b;
+        var _a, _b, _c;
         let constructor = inConstructor;
         let options = inOptions;
         if (this.overrideList.has(constructor)) {
@@ -53,17 +48,18 @@ class DI {
                 return this.singletonsList.get(constructor);
             }
         }
-        else if (lifeTime === autowired_lifetimes_1.AutowiredLifetimes.PerOwned && propertyKey) {
+        else if (lifeTime === autowired_lifetimes_1.AutowiredLifetimes.PerOwned && Boolean(propertyKey)) {
             if (Reflect.has(constructor, this.getDiKey(propertyKey))) {
                 return Reflect.get(constructor, this.getDiKey(propertyKey));
             }
         }
-        else if (lifeTime === autowired_lifetimes_1.AutowiredLifetimes.PerInstance && caller && propertyKey) {
+        else if (lifeTime === autowired_lifetimes_1.AutowiredLifetimes.PerInstance && caller && Boolean(propertyKey)) {
             if (Reflect.has(caller, this.getDiKey(propertyKey))) {
                 return Reflect.get(caller, this.getDiKey(propertyKey));
             }
         }
-        const params = Reflect.getMetadata("design:paramtypes", constructor) || [];
+        const params = (_c = Reflect
+            .getMetadata("design:paramtypes", constructor)) !== null && _c !== void 0 ? _c : [];
         const object = new constructor(...params
             .map((paramConstructor) => this.makeResolve(paramConstructor, options)));
         if (lifeTime === autowired_lifetimes_1.AutowiredLifetimes.Singleton) {

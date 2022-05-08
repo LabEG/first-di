@@ -33,7 +33,7 @@ describe("DI.ts", () => {
             @reflection
             class ProdService {
 
-                // eslint-disable-next-line @typescript-eslint/no-parameter-properties
+                // eslint-disable-next-line @typescript-eslint/parameter-properties
                 public constructor (private readonly prodRepository: ProdRepository) { }
 
                 public async getData (): Promise<string> {

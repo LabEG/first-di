@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import type { AutowiredOptions } from "../models/autowired-options";
 import type { ClassConstructor, OverrideConstructor } from "../typings/class-constructor";
 import type { OverrideOptions } from "../models/override-options";
