@@ -1,11 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable max-statements */
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 
+import "reflect-metadata";
 import type {AutowiredOptions} from "../models/autowired-options";
 import type {ClassConstructor, OverrideConstructor} from "../typings/class-constructor";
 import {AutowiredLifetimes} from "../models/autowired-lifetimes";
@@ -78,7 +72,7 @@ export class DI {
 
     protected makeAutowired (options?: AutowiredOptions): PropertyDecorator {
         return (target: object, propertyKey: string | symbol): void => {
-            const type = (Reflect as any).getMetadata("design:type", target, propertyKey) as ClassConstructor<object>;
+            const type = Reflect.getMetadata("design:type", target, propertyKey) as ClassConstructor<object>;
             const {resolve} = this;
 
             Reflect.defineProperty(
@@ -95,6 +89,7 @@ export class DI {
         };
     }
 
+    // eslint-disable-next-line max-statements
     protected makeResolve<T extends object>(
         inConstructor: ClassConstructor<T>,
         inOptions?: AutowiredOptions,
@@ -116,17 +111,18 @@ export class DI {
             if (this.singletonsList.has(constructor)) {
                 return this.singletonsList.get(constructor) as T;
             }
-        } else if (lifeTime === AutowiredLifetimes.PerOwned && propertyKey) {
+        } else if (lifeTime === AutowiredLifetimes.PerOwned && Boolean(propertyKey)) {
             if (Reflect.has(constructor, this.getDiKey(propertyKey))) {
                 return Reflect.get(constructor, this.getDiKey(propertyKey)) as T;
             }
-        } else if (lifeTime === AutowiredLifetimes.PerInstance && caller && propertyKey) {
+        } else if (lifeTime === AutowiredLifetimes.PerInstance && caller && Boolean(propertyKey)) {
             if (Reflect.has(caller, this.getDiKey(propertyKey))) {
                 return Reflect.get(caller, this.getDiKey(propertyKey)) as T;
             }
         }
 
-        const params: ClassConstructor<object>[] = (Reflect as any).getMetadata("design:paramtypes", constructor) as [] || [];
+        const params: ClassConstructor<object>[] = Reflect
+            .getMetadata("design:paramtypes", constructor) as ([] | null) ?? [];
 
         const object = new constructor(...params
             .map((paramConstructor: ClassConstructor<object>) => this.makeResolve(paramConstructor, options)));
