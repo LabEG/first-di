@@ -101,9 +101,9 @@ export class DI {
 
         if (this.overrideList.has(constructor)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const overridOptions = this.overrideList.get(constructor)!;
-            constructor = overridOptions.to as ClassConstructor<T>;
-            options = overridOptions.options ?? options;
+            const overrideOptions = this.overrideList.get(constructor)!;
+            constructor = overrideOptions.to as ClassConstructor<T>;
+            options = overrideOptions.options ?? options;
         }
 
         const lifeTime = options?.lifeTime ?? AutowiredLifetimes.Singleton;
@@ -144,8 +144,13 @@ export class DI {
     }
 
     protected makeOverride<T extends object>(from: OverrideConstructor<T>, to: ClassConstructor<T>, options?: AutowiredOptions): void {
-        this.overrideList.set(from, {to,
-            options});
+        this.overrideList.set(
+            from,
+            {
+                to,
+                options
+            }
+        );
     }
 
     protected getDiKey (propertyKey?: string | symbol): string {

@@ -38,9 +38,9 @@ class DI {
         let options = inOptions;
         if (this.overrideList.has(constructor)) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            const overridOptions = this.overrideList.get(constructor);
-            constructor = overridOptions.to;
-            options = (_a = overridOptions.options) !== null && _a !== void 0 ? _a : options;
+            const overrideOptions = this.overrideList.get(constructor);
+            constructor = overrideOptions.to;
+            options = (_a = overrideOptions.options) !== null && _a !== void 0 ? _a : options;
         }
         const lifeTime = (_b = options === null || options === void 0 ? void 0 : options.lifeTime) !== null && _b !== void 0 ? _b : autowired_lifetimes_1.AutowiredLifetimes.Singleton;
         if (lifeTime === autowired_lifetimes_1.AutowiredLifetimes.Singleton) {
@@ -78,8 +78,10 @@ class DI {
         this.overrideList = new Map();
     }
     makeOverride(from, to, options) {
-        this.overrideList.set(from, { to,
-            options });
+        this.overrideList.set(from, {
+            to,
+            options
+        });
     }
     getDiKey(propertyKey) {
         return `$_di_${String(propertyKey)}`; // Think about symbol
