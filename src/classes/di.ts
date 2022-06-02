@@ -82,7 +82,7 @@ export class DI {
                     configurable: false,
                     enumerable: false,
                     get () {
-                        return resolve(type, options, this, propertyKey);
+                        return resolve(type, options, this as object, propertyKey);
                     }
                 }
             );
