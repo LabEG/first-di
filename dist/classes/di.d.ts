@@ -1,7 +1,6 @@
-import "reflect-metadata";
-import type { AutowiredOptions } from "../models/autowired-options";
-import type { ClassConstructor, OverrideConstructor } from "../typings/class-constructor";
-import type { OverrideOptions } from "../models/override-options";
+import type { AutowiredOptions } from "../models/autowired-options.js";
+import type { ClassConstructor, OverrideConstructor } from "../typings/class-constructor.js";
+import type { OverrideOptions } from "../models/override-options.js";
 export declare class DI {
     static defaultOptions: AutowiredOptions;
     autowired: (options?: AutowiredOptions) => PropertyDecorator;

@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import("reflect-metadata"); // Polyfill
+import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
 import {reset, override} from "../src/index";
 import {ProductionRepository} from "./repositories/ProductionRepository";

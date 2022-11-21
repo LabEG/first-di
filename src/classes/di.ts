@@ -1,9 +1,8 @@
 
-import "reflect-metadata";
-import type {AutowiredOptions} from "../models/autowired-options";
-import type {ClassConstructor, OverrideConstructor} from "../typings/class-constructor";
-import {AutowiredLifetimes} from "../models/autowired-lifetimes";
-import type {OverrideOptions} from "../models/override-options";
+import type {AutowiredOptions} from "../models/autowired-options.js";
+import type {ClassConstructor, OverrideConstructor} from "../typings/class-constructor.js";
+import {AutowiredLifetimes} from "../models/autowired-lifetimes.js";
+import type {OverrideOptions} from "../models/override-options.js";
 
 export class DI {
 

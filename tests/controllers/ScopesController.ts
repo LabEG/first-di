@@ -1,5 +1,5 @@
 
-import {DI} from "../../src";
+import {DI} from "../../src/index.js";
 import type {TestModel} from "../models/TestModel";
 import {ProductionService} from "../services/ProductionService";
 

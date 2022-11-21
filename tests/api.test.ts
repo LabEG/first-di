@@ -1,6 +1,6 @@
 /* eslint-disable no-shadow */
 /* eslint-disable no-undef */
-import("reflect-metadata"); // Polyfill
+import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
 import {resolve, singleton, instance, reset} from "../src/index";
 

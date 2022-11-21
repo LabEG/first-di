@@ -1,4 +1,4 @@
-import {autowired} from "../../src";
+import {autowired} from "../../src/index.js";
 import type {TestModel} from "../models/TestModel";
 import {ImplProductionService} from "../services/ImplProductionService";
 

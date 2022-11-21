@@ -1,7 +1,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable max-lines-per-function */
-import("reflect-metadata"); // Polyfill
+import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
 import {reset, override, autowired, reflection} from "../src/index";
 

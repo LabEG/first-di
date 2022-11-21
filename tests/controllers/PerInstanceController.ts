@@ -1,4 +1,4 @@
-import {autowired, AutowiredLifetimes} from "../../src";
+import {autowired, AutowiredLifetimes} from "../../src/index.js";
 import type {TestModel} from "../models/TestModel";
 import {ProductionService} from "../services/ProductionService";
 
