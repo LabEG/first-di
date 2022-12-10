@@ -9,15 +9,15 @@
         "reflect-metadata": ">=0.1.0"
     },
     "devDependencies": {
-        "@labeg/code-style": "^2.0.60",
+        "@labeg/code-style": "^2.0.63",
         "@types/chai": "^4.3.4",
-        "@types/mocha": "^10.0.0",
-        "@types/node": "^18.11.9",
+        "@types/mocha": "^10.0.1",
+        "@types/node": "^18.11.13",
         "chai": "^4.3.7",
         "mocha": "^10.1.0",
         "ts-node": "^10.9.1",
         "reflect-metadata": "^0.1.13",
-        "typescript": "^4.9.3"
+        "typescript": "^4.9.4"
     },
     "scripts": {
         "cs:eslint": "eslint --fix -c .eslintrc.cjs --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",
