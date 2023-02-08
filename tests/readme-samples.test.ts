@@ -1,6 +1,7 @@
 /* eslint-disable max-statements */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable max-lines-per-function */
+// eslint-disable-next-line @typescript-eslint/no-import-type-side-effects
 import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
 import {reset, override, autowired, reflection} from "../src/index";
