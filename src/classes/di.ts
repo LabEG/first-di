@@ -152,6 +152,7 @@ export class DI {
         );
     }
 
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     protected getDiKey (propertyKey?: string | symbol): string {
         return `$_di_${String(propertyKey)}`; // Think about symbol
     }

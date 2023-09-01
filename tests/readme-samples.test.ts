@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/class-methods-use-this */
 /* eslint-disable max-statements */
 /* eslint-disable max-classes-per-file */
 /* eslint-disable max-lines-per-function */
