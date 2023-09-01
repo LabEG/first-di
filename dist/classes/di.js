@@ -80,6 +80,7 @@ export class DI {
             options
         });
     }
+    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
     getDiKey(propertyKey) {
         return `$_di_${String(propertyKey)}`; // Think about symbol
     }
