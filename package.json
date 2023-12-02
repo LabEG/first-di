@@ -9,15 +9,15 @@
         "reflect-metadata": ">=0.1.0"
     },
     "devDependencies": {
-        "@labeg/code-style": "^3.0.6",
-        "@types/chai": "^4.3.5",
-        "@types/mocha": "^10.0.1",
-        "@types/node": "^20.5.8",
-        "chai": "^4.3.8",
+        "@labeg/code-style": "^3.0.8",
+        "@types/chai": "^4.3.11",
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^20.10.2",
+        "chai": "^4.3.10",
         "mocha": "^10.2.0",
         "ts-node": "^10.9.1",
         "reflect-metadata": "^0.1.13",
-        "typescript": "^5.2.2"
+        "typescript": "^5.3.2"
     },
     "scripts": {
         "lint": "eslint --fix -c .eslintrc.cjs --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",

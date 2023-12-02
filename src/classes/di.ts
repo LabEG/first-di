@@ -46,6 +46,7 @@ export class DI {
             options?: AutowiredOptions,
             caller?: object,
             propertyKey?: string | symbol
+        // eslint-disable-next-line @typescript-eslint/max-params
         ): T => this.makeResolve(constructor, options, caller, propertyKey);
 
         this.singleton = <T extends object>(
@@ -88,7 +89,7 @@ export class DI {
         };
     }
 
-    // eslint-disable-next-line max-statements
+    // eslint-disable-next-line max-statements, @typescript-eslint/max-params
     protected makeResolve<T extends object>(
         inConstructor: ClassConstructor<T>,
         inOptions?: AutowiredOptions,
