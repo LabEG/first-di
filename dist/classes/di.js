@@ -7,7 +7,9 @@ export class DI {
         this.reset = () => {
             this.makeReset();
         };
-        this.resolve = (constructor, options, caller, propertyKey) => this.makeResolve(constructor, options, caller, propertyKey);
+        this.resolve = (constructor, options, caller, propertyKey
+        // eslint-disable-next-line @typescript-eslint/max-params
+        ) => this.makeResolve(constructor, options, caller, propertyKey);
         this.singleton = (constructor, options) => this.makeResolve(constructor, { ...options,
             lifeTime: AutowiredLifetimes.Singleton });
         this.instance = (constructor, options) => this.makeResolve(constructor, { ...options,
@@ -29,7 +31,7 @@ export class DI {
             });
         };
     }
-    // eslint-disable-next-line max-statements
+    // eslint-disable-next-line max-statements, @typescript-eslint/max-params
     makeResolve(inConstructor, inOptions, caller, propertyKey) {
         let constructor = inConstructor;
         let options = inOptions;
