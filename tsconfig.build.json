@@ -5,10 +5,11 @@
         "module": "ESNext",
         "declaration": true,
         "diagnostics": true,
-        "outDir": "dist/"
+        "outDir": "dist/",
+        "noEmit": false
     },
     "include": [
-        "./node_modules/reflect-metadata/Reflect.d.ts",
+        "./node_modules/reflect-metadata/index.d.ts",
         "./src/**/*"
     ]
 }

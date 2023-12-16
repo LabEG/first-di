@@ -9,20 +9,20 @@
         "reflect-metadata": ">=0.1.0"
     },
     "devDependencies": {
-        "@labeg/code-style": "^3.0.9",
+        "@labeg/code-style": "^4.0.4",
         "@types/chai": "^4.3.11",
         "@types/mocha": "^10.0.6",
-        "@types/node": "^20.10.2",
+        "@types/node": "^20.10.4",
         "chai": "^4.3.10",
         "mocha": "^10.2.0",
-        "ts-node": "^10.9.1",
-        "reflect-metadata": "^0.1.13",
-        "typescript": "^5.3.2"
+        "ts-node": "^10.9.2",
+        "reflect-metadata": "^0.2.1",
+        "typescript": "^5.3.3"
     },
     "scripts": {
         "lint": "eslint --fix -c .eslintrc.cjs --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",
         "test": "mocha --reporter spec --require ts-node/register tests/*.test.ts",
-        "build": "rm -rf dist/ && tsc --project tsconfigbuild.json && node ./dist/index.js",
+        "build": "rm -rf dist/ && tsc --project tsconfig.build.json && node ./dist/index.js",
         "prepublishOnly": "npm run lint && npm run build && npm run test && npm version patch"
     },
     "repository": {
