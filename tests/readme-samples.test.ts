@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/parameter-properties */
+/* eslint-disable @stylistic/function-paren-newline */
 /* eslint-disable @typescript-eslint/class-methods-use-this */
 /* eslint-disable max-statements */
 /* eslint-disable max-classes-per-file */
@@ -5,7 +7,7 @@
 // eslint-disable-next-line @typescript-eslint/no-import-type-side-effects
 import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
-import {reset, override, autowired, reflection} from "../src/index";
+import {reset, override, resolve, reflection} from "../src/index";
 
 describe("DI.ts", () => {
     describe("resolve dependencies", () => {
@@ -13,7 +15,7 @@ describe("DI.ts", () => {
             reset();
         });
 
-        it("sample in easy mode", async () => {
+        it("sample in optional di mode", async () => {
             @reflection // Typescript will generate reflection metadata
             class ProdRepository { // Default implementation
 
@@ -35,8 +37,9 @@ describe("DI.ts", () => {
             @reflection
             class ProdService {
 
-                // eslint-disable-next-line @typescript-eslint/parameter-properties
-                public constructor (private readonly prodRepository: ProdRepository) { }
+                public constructor (
+                    private readonly prodRepository: ProdRepository
+                ) { }
 
                 public async getData (): Promise<string> {
                     return this.prodRepository.getData();
@@ -44,10 +47,15 @@ describe("DI.ts", () => {
 
             }
 
-            class ProdController {
+            @reflection
+            class ProdStore {
 
-                @autowired() // Inject dependency
-                private readonly prodService!: ProdService;
+                public constructor (
+                    // Inject dependency
+                    private readonly prodService: ProdService
+                ) {
+                    // Other logic here
+                }
 
                 public async getData (): Promise<string> {
                     return this.prodService.getData();
@@ -59,8 +67,8 @@ describe("DI.ts", () => {
                 override(ProdRepository, MockRepository);
             }
 
-            const controllerInstance = new ProdController(); // Create intance by framework
-            const data = await controllerInstance.getData();
+            const store = resolve(ProdStore); // Create intance by framework
+            const data = await store.getData();
 
             if (process.env.NODE_ENV === "test") {
                 assert.strictEqual(data, "mock");
@@ -69,7 +77,7 @@ describe("DI.ts", () => {
             }
         });
 
-        it("sample in pro mode", async () => {
+        it("sample in classic di mode", async () => {
             abstract class AbstractRepository { // Abstract instead of interface
 
                 public abstract getData (): Promise<string>;
@@ -115,10 +123,12 @@ describe("DI.ts", () => {
 
             }
 
-            class ProdController {
+            @reflection
+            class ProdStore {
 
-                @autowired()
-                private readonly prodService!: AbstractService;
+                public constructor (
+                    private readonly prodService: AbstractService
+                ) {}
 
                 public async getData (): Promise<string> {
                     return this.prodService.getData();
@@ -134,8 +144,8 @@ describe("DI.ts", () => {
                 override(AbstractRepository, ProdRepository);
             }
 
-            const controllerInstance = new ProdController();
-            const data = await controllerInstance.getData();
+            const store = resolve(ProdStore);
+            const data = await store.getData();
 
             if (process.env.NODE_ENV === "test") {
                 assert.strictEqual(data, "mock");
