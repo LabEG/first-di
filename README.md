@@ -42,10 +42,10 @@ In tsconfig.json enable compiler options:
 Using in Optional DI mode
 ------
 
- Simply write code as you used to and use @autowired() decorator to implement dependencies. And for override dependencies just use method override.
+Just write classes and inject dependencies through class constructors. When the 'resolve' function is called, all dependencies will be resolved.
 
 ```typescript
-import { autowired, override, reflection } from "first-di";
+import { resolve, override, reflection } from "first-di";
 
 @reflection // Typescript will generate reflection metadata
 class ProdRepository { // Default implementation
@@ -114,7 +114,7 @@ Using in Classic DI mode
  In professional mode Interfaces are used instead of implementations. But typescript does not generate Interfaces for working in runtime. But Interface is abstract base class. So instead of Interfaces, you need to write Abstract classes.
 
 ```typescript
-import { autowired, override, reflection } from "first-di";
+import { resolve, override, reflection } from "first-di";
 
 abstract class AbstractRepository { // Abstract instead of interface
 
@@ -246,7 +246,7 @@ First DI also has an API for extended use.
 Resolve, singleton, instance - can be used to implement the Service Locator.
 
 ```typescript
-import { singleton, instance, resolve, autowired, AutowiredLifetimes } from "first-di";
+import { singleton, instance, resolve, AutowiredLifetimes } from "first-di";
 
 class ApiDemo {
 
