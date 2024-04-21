@@ -13,6 +13,11 @@ export declare class DI {
     protected singletonsList: Map<ClassConstructor<object>, object>;
     protected overrideList: Map<OverrideConstructor<object>, OverrideOptions>;
     constructor();
+    /**
+     * Decorator @autowired is deprecated, and will by removed in next versions
+     * @param options
+     * @returns
+     */
     protected makeAutowired(options?: AutowiredOptions): PropertyDecorator;
     protected makeResolve<T extends object>(inConstructor: ClassConstructor<T>, inOptions?: AutowiredOptions, caller?: object, propertyKey?: string | symbol): T;
     protected makeReset(): void;

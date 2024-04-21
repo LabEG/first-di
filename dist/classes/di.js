@@ -18,7 +18,16 @@ export class DI {
             this.makeOverride(from, to, options);
         };
     }
+    /**
+     * Decorator @autowired is deprecated, and will by removed in next versions
+     * @param options
+     * @returns
+     */
     makeAutowired(options) {
+        // eslint-disable-next-line no-console
+        console.warn("first-di: @autowired is depreacted, " +
+            "new standart of ecmascript decorators prohibits changing the classes, " +
+            "use 'resolve' functions instaed of @autowired");
         return (target, propertyKey) => {
             const type = Reflect.getMetadata("design:type", target, propertyKey);
             const { resolve } = this;
