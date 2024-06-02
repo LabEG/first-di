@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.1] - 2024-06-02
+
+### ⚙️ Miscellaneous Tasks
+
+- Ci without force
+
 ## [3.0.0] - 2024-06-02
 
 ### 🚀 Features
