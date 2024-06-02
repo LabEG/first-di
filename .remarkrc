@@ -1,0 +1,15 @@
+{
+    "presets": [
+        "lint-recommended"
+    ],
+    "plugins": {
+        "lint": {
+            "bullet": "-"
+        }
+    },
+    "settings": {
+        "listItemIndent": "2",
+        "incrementListMarker": true
+    },
+    "output": true
+}
