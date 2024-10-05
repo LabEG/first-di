@@ -78,8 +78,8 @@ export class DI {
     protected makeAutowired (options?: AutowiredOptions): PropertyDecorator {
         // eslint-disable-next-line no-console
         console.warn("first-di: @autowired is depreacted, " +
-        "new standart of ecmascript decorators prohibits changing the classes, " +
-        "use 'resolve' functions instaed of @autowired");
+          "new standart of ecmascript decorators prohibits changing the classes, " +
+          "use 'resolve' functions instaed of @autowired");
 
         return (target: object, propertyKey: string | symbol): void => {
             const type = Reflect.getMetadata("design:type", target, propertyKey) as ClassConstructor<object>;
