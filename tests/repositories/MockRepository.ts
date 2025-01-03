@@ -11,7 +11,7 @@ export class MockRepository {
         return Promise.resolve(this.requestCounter);
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
+
     public async getData (): Promise<TestModel> {
         const data = new TestModel();
         data.repositoryData = "mock";

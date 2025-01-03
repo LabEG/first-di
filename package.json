@@ -17,11 +17,11 @@
     },
     "lint-staged": {
         "./tests/**/*.(ts|tsx|js|jsx)": [
-            "eslint --fix -c .eslintrc.js --ext .tsx,.ts,.jsx,.js"
+            "eslint --fix"
         ]
     },
     "scripts": {
-        "lint": "eslint --fix -c .eslintrc.cjs --ext .tsx,.ts,.jsx,.js ./src/ ./tests/",
+        "lint": "eslint --fix ./src/ ./tests/",
         "test": "mocha --reporter spec --require ts-node/register tests/*.test.ts",
         "build": "rm -rf dist/ && tsc --project tsconfig.build.json && node ./dist/index.js",
         "release": "cliff-jumper --name '@labeg/code-style' --package-path '.' --no-skip-changelog --no-skip-tag",
@@ -32,20 +32,20 @@
         "reflect-metadata": ">=0.1.0"
     },
     "devDependencies": {
-        "@labeg/code-style": "^4.4.0",
-        "@types/chai": "^5.0.0",
-        "@types/mocha": "^10.0.8",
-        "@types/node": "^22.7.4",
-        "chai": "^5.1.1",
-        "mocha": "^10.7.3",
+        "@labeg/code-style": "^5.5.0",
+        "@types/chai": "^5.0.1",
+        "@types/mocha": "^10.0.10",
+        "@types/node": "^22.10.5",
+        "chai": "^5.1.2",
+        "mocha": "^11.0.1",
         "ts-node": "^10.9.2",
         "reflect-metadata": "^0.2.2",
-        "typescript": "^5.6.2",
-        "@commitlint/cli": "^19.5.0",
-        "@commitlint/config-conventional": "^19.5.0",
-        "husky": "^9.1.6",
-        "lint-staged": "^15.2.10",
-        "@favware/cliff-jumper": "^4.1.0"
+        "typescript": "^5.7.2",
+        "@commitlint/cli": "^19.6.1",
+        "@commitlint/config-conventional": "^19.6.0",
+        "husky": "^9.1.7",
+        "lint-staged": "^15.3.0",
+        "@favware/cliff-jumper": "^5.0.0"
     },
     "keywords": [
         "dependency injection",

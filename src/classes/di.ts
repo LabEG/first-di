@@ -1,3 +1,4 @@
+/* eslint-disable max-params */
 
 import type {AutowiredOptions} from "../models/autowired-options.js";
 import type {ClassConstructor, OverrideConstructor} from "../typings/class-constructor.js";
@@ -46,7 +47,7 @@ export class DI {
             options?: AutowiredOptions,
             caller?: object,
             propertyKey?: string | symbol
-        // eslint-disable-next-line @typescript-eslint/max-params
+
         ): T => this.makeResolve(constructor, options, caller, propertyKey);
 
         this.singleton = <T extends object>(
@@ -99,7 +100,7 @@ export class DI {
         };
     }
 
-    // eslint-disable-next-line max-statements, @typescript-eslint/max-params
+    // eslint-disable-next-line max-statements
     protected makeResolve<T extends object>(
         inConstructor: ClassConstructor<T>,
         inOptions?: AutowiredOptions,
@@ -163,7 +164,7 @@ export class DI {
         );
     }
 
-    // eslint-disable-next-line @typescript-eslint/class-methods-use-this
+
     protected getDiKey (propertyKey?: string | symbol): string {
         return `$_di_${String(propertyKey)}`; // Think about symbol
     }

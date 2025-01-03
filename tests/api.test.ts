@@ -1,7 +1,5 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-undef */
-// eslint-disable-next-line @typescript-eslint/no-import-type-side-effects
-// eslint-disable-next-line @typescript-eslint/no-import-type-side-effects
+
+
 import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
 import {resolve, singleton, instance, reset} from "../src/index";
