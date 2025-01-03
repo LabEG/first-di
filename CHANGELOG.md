@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.2] - 2025-01-03
+
+### ⚙️ Miscellaneous Tasks
+
+- Update node build version to 23
+
 ## [3.2.1] - 2025-01-03
 
 ### 🧪 Testing
