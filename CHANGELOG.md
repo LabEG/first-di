@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.2.1] - 2025-01-03
+
+### 🧪 Testing
+
+- Replace mocha by native test runner
+
 ## [3.2.0] - 2025-01-03
 
 ### 🚀 Features
