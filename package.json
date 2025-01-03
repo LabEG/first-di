@@ -22,9 +22,11 @@
     },
     "scripts": {
         "lint": "eslint --fix ./src/ ./tests/",
-        "test": "mocha --reporter spec --require ts-node/register tests/*.test.ts",
+        "test": "node --import ./ts-loader.js --test --test-reporter=spec --test-reporter-destination=stdout \"tests/**/*.spec.ts\"",
+        "test-watch": "node --watch --import ./ts-loader.js --test --test-reporter=spec --test-reporter-destination=stdout \"tests/**/*.spec.ts\"",
+        "coverage": "node --import ./ts-loader.js --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage/lcov.info \"tests/**/*.spec.ts\"",
         "build": "rm -rf dist/ && tsc --project tsconfig.build.json && node ./dist/index.js",
-        "release": "cliff-jumper --name '@labeg/code-style' --package-path '.' --no-skip-changelog --no-skip-tag",
+        "release": "cliff-jumper --name 'first-di' --package-path '.' --no-skip-changelog --no-skip-tag",
         "prepublishOnly": "npm run lint && npm run build && npm run test",
         "prepare": "husky install"
     },
@@ -33,12 +35,9 @@
     },
     "devDependencies": {
         "@labeg/code-style": "^5.5.0",
+        "@swc-node/register": "^1.10.9",
         "@types/chai": "^5.0.1",
-        "@types/mocha": "^10.0.10",
-        "@types/node": "^22.10.5",
         "chai": "^5.1.2",
-        "mocha": "^11.0.1",
-        "ts-node": "^10.9.2",
         "reflect-metadata": "^0.2.2",
         "typescript": "^5.7.2",
         "@commitlint/cli": "^19.6.1",

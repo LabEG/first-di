@@ -3,6 +3,7 @@
 import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
 import {resolve, singleton, instance, reset} from "../src/index";
+import {describe, it, afterEach} from "node:test";
 
 describe("DI.ts", () => {
     describe("api", () => {
