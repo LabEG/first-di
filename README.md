@@ -1,7 +1,7 @@
 First DI
 =====
 
-Easy dependency injection for typescript applications
+Easy dependency injection for TypeScript applications
 
 Installation
 ------
@@ -15,16 +15,16 @@ npm i first-di
 Features
 ------
 
-- Easy and powerful dependency injection for any typescript application.
+- Easy and powerful dependency injection for any TypeScript application.
 - 2 modes of work. Optional DI - for most apps. Classic DI - for advanced apps.
 - Support for multiple scopes.
 - Supports multiple life cycles.
-- Dependency Free. Dependency used only for development.
+- Dependency-free. Dependencies are used only for development.
 
 Setup
 ------
 
-Install [reflect-metadata](https://www.npmjs.com/package/reflect-metadata) package and import in root typescript file. This package is needed to support reflection and is a mandatory requirement of Typescript.
+Install [reflect-metadata](https://www.npmjs.com/package/reflect-metadata) package and import it in the root TypeScript file. This package is needed to support reflection and is a mandatory requirement of TypeScript.
 
 In tsconfig.json enable compiler options:
 
@@ -48,7 +48,7 @@ Just write classes and inject dependencies through class constructors. When the 
 ```typescript
 import { resolve, override, reflection } from "first-di";
 
-@reflection // Typescript will generate reflection metadata
+@reflection // TypeScript will generate reflection metadata
 class ProdRepository { // Default implementation
 
     public async getData (): Promise<string> {
@@ -99,7 +99,7 @@ if (process.env.NODE_ENV === "test") { // Override in test environment
     override(ProdRepository, MockRepository);
 }
 
-const store = resolve(ProdStore); // Create intance by framework
+const store = resolve(ProdStore); // Create instance by framework
 const data = await store.getData();
 
 if (process.env.NODE_ENV === "test") {
@@ -112,7 +112,7 @@ if (process.env.NODE_ENV === "test") {
 Using in Classic DI mode
 ------
 
- In professional mode Interfaces are used instead of implementations. But typescript does not generate Interfaces for working in runtime. But Interface is abstract base class. So instead of Interfaces, you need to write Abstract classes.
+ In professional mode Abstract classes are used instead of interfaces. TypeScript does not generate interfaces for working in runtime. Abstract classes serve as the abstract base class. So instead of interfaces, you need to write Abstract classes.
 
 ```typescript
 import { resolve, override, reflection } from "first-di";
@@ -199,12 +199,12 @@ Options
 First DI has several points for customizing dependency options:
 
 - **Global** - `DI.defaultOptions: AutowiredOptions`. Sets global default behavior.
-- **Override** - `override(fromClass, toClass, options?: AutowiredOptions)`. Sets behavior overrided dependency.
+- **Override** - `override(fromClass, toClass, options?: AutowiredOptions)`. Sets behavior overridden dependency.
 - **Resolve** - `resolve(class, options?: AutowiredOptions)`. Sets behaviors for resolve dependencies.
 
-Options has next properties:
+Options have the following properties:
 
-- **lifeTime: AutowiredLifetimes** - Sets lifeTime of dependecy.
+- **lifeTime: AutowiredLifetimes** - Sets lifeTime of dependency.
 
     SINGLETON - Create one instance for all resolvers.
 
@@ -239,10 +239,10 @@ API
 First DI also has an API for extended use.
 
 - override - Function. Override dependency and resolve options.
-- resolve - Function. Resolves dependence with default options or specified.
+- resolve - Function. Resolves dependency with default options or specified.
 - singleton - Function. Resolve singleton.
 - instance - Function. Resolve new instance.
-- reset - Function. Reset all singleton list and override list, but don.t reset global options.
+- reset - Function. Reset all singleton list and override list, but doesn't reset global options.
 
 Resolve, singleton, instance - can be used to implement the Service Locator.
 
@@ -263,7 +263,7 @@ class ApiDemo {
 Extension DI
 ------
 
-First DI using OOP and SOLID design principles. Each part of DI can be override or extende after inheritance from base class.
+First DI uses OOP and SOLID design principles. Each part of DI can be overridden or extended after inheritance from the base class.
 
 ```typescript
 import { DI } from "first-di";

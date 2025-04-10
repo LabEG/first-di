@@ -5,6 +5,10 @@ import type {ClassConstructor, OverrideConstructor} from "../typings/class-const
 import {AutowiredLifetimes} from "../models/autowired-lifetimes.js";
 import type {OverrideOptions} from "../models/override-options.js";
 
+/*
+ * Dependency Injection (DI) class for managing object creation and dependency resolution.
+ * Provides methods for resolving dependencies, managing singletons, and overriding implementations.
+ */
 export class DI {
 
     public static defaultOptions: AutowiredOptions = {
@@ -78,9 +82,9 @@ export class DI {
      */
     protected makeAutowired (options?: AutowiredOptions): PropertyDecorator {
         // eslint-disable-next-line no-console
-        console.warn("first-di: @autowired is depreacted, " +
-          "new standart of ecmascript decorators prohibits changing the classes, " +
-          "use 'resolve' functions instaed of @autowired");
+        console.warn("first-di: @autowired is deprecated, " +
+          "new standard of ECMAScript decorators prohibits changing the classes, " +
+          "use 'resolve' functions instead of @autowired");
 
         return (target: object, propertyKey: string | symbol): void => {
             const type = Reflect.getMetadata("design:type", target, propertyKey) as ClassConstructor<object>;

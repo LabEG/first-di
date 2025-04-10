@@ -14,8 +14,8 @@ describe("DI.ts", () => {
             reset();
         });
 
-        it("sample in optional di mode", async () => {
-            @reflection // Typescript will generate reflection metadata
+        it("sample in optional DI mode", async () => {
+            @reflection // TypeScript will generate reflection metadata
             class ProdRepository { // Default implementation
 
                 public async getData (): Promise<string> {
@@ -66,7 +66,7 @@ describe("DI.ts", () => {
                 override(ProdRepository, MockRepository);
             }
 
-            const store = resolve(ProdStore); // Create intance by framework
+            const store = resolve(ProdStore); // Create instance by framework
             const data = await store.getData();
 
             if (process.env.NODE_ENV === "test") {
@@ -76,7 +76,7 @@ describe("DI.ts", () => {
             }
         });
 
-        it("sample in classic di mode", async () => {
+        it("sample in classic DI mode", async () => {
             abstract class AbstractRepository { // Abstract instead of interface
 
                 public abstract getData (): Promise<string>;

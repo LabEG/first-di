@@ -18,7 +18,7 @@ export enum AutowiredLifetimes {
     PerOwned = 2,
 
     /**
-     * Recreate each dependency on each access to dependency
+     * Recreate each dependency on each access to the dependency
      */
     PerAccess = 3
 }
