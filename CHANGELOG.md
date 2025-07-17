@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.1] - 2025-04-10
+
+### 🐛 Bug Fixes
+
+- Correct capitalization and grammar in documentation and comments
+
 ## [3.3.0] - 2025-04-10
 
 ### 🚀 Features
