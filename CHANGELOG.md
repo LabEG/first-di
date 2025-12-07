@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.4] - 2025-12-07
+
+### 📚 Documentation
+
+- Add CodeQL badge to README for enhanced security scanning visibility
+
 ## [3.4.3] - 2025-12-07
 
 ### 📚 Documentation
