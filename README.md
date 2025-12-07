@@ -1,4 +1,4 @@
-# first-di
+# First-DI
 
 [![npm version](https://img.shields.io/npm/v/first-di.svg)](https://www.npmjs.com/package/first-di)
 [![npm downloads](https://img.shields.io/npm/dm/first-di.svg)](https://www.npmjs.com/package/first-di)
