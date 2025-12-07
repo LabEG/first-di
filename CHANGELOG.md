@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.1] - 2025-12-07
+
+### ⚙️ Miscellaneous Tasks
+
+- Remove .npmignore and update package.json to include additional files
+- Clean up husky scripts and enhance README with security policy and features
+
 ## [3.4.0] - 2025-12-07
 
 ## [3.3.2] - 2025-07-17
