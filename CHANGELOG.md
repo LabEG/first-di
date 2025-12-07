@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.2] - 2025-07-17
+
+### ⚙️ Miscellaneous Tasks
+
+- Update dependencies and improve code quality
+
 ## [3.3.1] - 2025-04-10
 
 ### 🐛 Bug Fixes
