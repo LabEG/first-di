@@ -4,6 +4,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/first-di.svg)](https://www.npmjs.com/package/first-di)
 [![license](https://img.shields.io/npm/l/first-di.svg)](https://github.com/LabEG/first-di/blob/master/LICENSE)
 [![Build Status](https://github.com/LabEG/first-di/workflows/Test%20Pull%20Request/badge.svg)](https://github.com/LabEG/first-di/actions)
+[![CodeQL](https://github.com/LabEG/first-di/workflows/CodeQL%20Advanced/badge.svg)](https://github.com/LabEG/first-di/security/code-scanning)
 
 Lightweight and powerful dependency injection container for TypeScript applications
 
