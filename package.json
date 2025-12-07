@@ -36,7 +36,7 @@
         "build": "rm -rf dist/ && tsc --project tsconfig.build.json && node ./dist/index.js",
         "release": "cliff-jumper --name 'first-di' --package-path '.' --no-skip-changelog --no-skip-tag",
         "prepublishOnly": "npm run lint && npm run build && npm run test",
-        "prepare": "husky install"
+        "prepare": "husky"
     },
     "peerDependencies": {
         "reflect-metadata": ">=0.1.0"

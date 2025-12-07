@@ -1,34 +1,51 @@
-First DI
-=====
+# first-di
 
-Easy dependency injection for TypeScript applications
+[![npm version](https://img.shields.io/npm/v/first-di.svg)](https://www.npmjs.com/package/first-di)
+[![npm downloads](https://img.shields.io/npm/dm/first-di.svg)](https://www.npmjs.com/package/first-di)
+[![license](https://img.shields.io/npm/l/first-di.svg)](https://github.com/LabEG/first-di/blob/master/LICENSE)
+[![Build Status](https://github.com/LabEG/first-di/workflows/Test%20Pull%20Request/badge.svg)](https://github.com/LabEG/first-di/actions)
 
-Installation
-------
+Lightweight and powerful dependency injection container for TypeScript applications
+
+---
+
+## Overview
+
+**first-di** is a modern, type-safe dependency injection container designed specifically for TypeScript applications. It provides a clean and intuitive API for managing dependencies with minimal configuration and zero runtime dependencies.
+
+### Key Features
+
+- 🚀 **Zero Dependencies** - No external runtime dependencies required
+- 💡 **Two Operation Modes** - Optional DI for simplicity, Classic DI for advanced scenarios
+- 🔄 **Multiple Lifecycles** - Singleton, Transient, Per-Instance, and Per-Access patterns
+- 🎯 **Type-Safe** - Full TypeScript support with decorator-based metadata
+- 🔧 **Flexible Scoping** - Support for multiple isolated DI containers
+- 🧪 **Test-Friendly** - Easy mocking and overriding for unit tests
+- 📦 **Extensible** - Built on OOP/SOLID principles for easy customization
+
+---
+
+## Installation
 
 For the latest stable version:
 
-```Bash
+```bash
 npm i first-di
 ```
 
-Features
-------
+## Quick Start
 
-- Easy and powerful dependency injection for any TypeScript application.
-- 2 modes of work. Optional DI - for most apps. Classic DI - for advanced apps.
-- Support for multiple scopes.
-- Supports multiple life cycles.
-- Dependency-free. Dependencies are used only for development.
+### Prerequisites
 
-Setup
-------
+Install [reflect-metadata](https://www.npmjs.com/package/reflect-metadata) package and import it in your application entry point:
 
-Install [reflect-metadata](https://www.npmjs.com/package/reflect-metadata) package and import it in the root TypeScript file. This package is needed to support reflection and is a mandatory requirement of TypeScript.
+```bash
+npm install reflect-metadata
+```
 
-In tsconfig.json enable compiler options:
+Enable the following compiler options in `tsconfig.json`:
 
-```Json
+```json
 {
     "compilerOptions": {
         ...
@@ -40,10 +57,13 @@ In tsconfig.json enable compiler options:
 
 ```
 
-Using in Optional DI mode
-------
+---
 
-Just write classes and inject dependencies through class constructors. When the 'resolve' function is called, all dependencies will be resolved.
+## Usage
+
+### Optional DI Mode
+
+The simplest approach - write classes and inject dependencies through constructors. All dependencies are automatically resolved when calling `resolve()`.
 
 ```typescript
 import { resolve, override, reflection } from "first-di";
@@ -109,10 +129,9 @@ if (process.env.NODE_ENV === "test") {
 }
 ```
 
-Using in Classic DI mode
-------
+### Classic DI Mode
 
- In professional mode Abstract classes are used instead of interfaces. TypeScript does not generate interfaces for working in runtime. Abstract classes serve as the abstract base class. So instead of interfaces, you need to write Abstract classes.
+For advanced scenarios, use abstract classes as contracts instead of interfaces. Abstract classes generate runtime metadata that TypeScript interfaces cannot provide.
 
 ```typescript
 import { resolve, override, reflection } from "first-di";
@@ -193,8 +212,7 @@ if (process.env.NODE_ENV === "test") {
 }
 ```
 
-Options
-------
+## Options
 
 First DI has several points for customizing dependency options:
 
@@ -214,8 +232,7 @@ Options have the following properties:
 
     PER_ACCESS - Create new instance on each access to resolved property.
 
-Scopes
-------
+## Scopes
 
 Support multiple scopes
 
@@ -233,18 +250,21 @@ const serviceScopeB = scopeB.resolve(ProductionService);
 const dataB = await serviceScopeB.getData();
 ```
 
-API
-------
+---
 
-First DI also has an API for extended use.
+## API Reference
 
-- override - Function. Override dependency and resolve options.
-- resolve - Function. Resolves dependency with default options or specified.
-- singleton - Function. Resolve singleton.
-- instance - Function. Resolve new instance.
-- reset - Function. Reset all singleton list and override list, but doesn't reset global options.
+### Core Functions
 
-Resolve, singleton, instance - can be used to implement the Service Locator.
+- **`override(fromClass, toClass, options?)`** - Override dependency resolution with custom implementation
+- **`resolve(class, options?)`** - Resolve dependency with specified or default options
+- **`singleton(class)`** - Resolve as singleton instance
+- **`instance(class)`** - Always create new instance
+- **`reset()`** - Clear all singletons and overrides (preserves global options)
+
+### Service Locator Pattern
+
+The API functions can be used to implement the Service Locator pattern:
 
 ```typescript
 import { singleton, instance, resolve, AutowiredLifetimes } from "first-di";
@@ -260,10 +280,13 @@ class ApiDemo {
 }
 ```
 
-Extension DI
-------
+---
 
-First DI uses OOP and SOLID design principles. Each part of DI can be overridden or extended after inheritance from the base class.
+## Advanced Usage
+
+### Extending the DI Container
+
+Built on OOP and SOLID principles, every component can be extended or customized:
 
 ```typescript
 import { DI } from "first-di";
@@ -275,3 +298,13 @@ class MyDI extends DI {
     }
 }
 ```
+
+---
+
+## Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) before submitting pull requests.
+
+## License
+
+MIT © [Eugene Labutin](https://github.com/LabEG)
