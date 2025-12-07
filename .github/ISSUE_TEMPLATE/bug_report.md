@@ -13,9 +13,9 @@ A clear and concise description of the bug.
 
 ## Steps to Reproduce
 
-1. Install `@labeg/code-style` version X.X.X
-2. Configure ESLint with '...'
-3. Run ESLint on '...'
+1. Install `first-di` version X.X.X
+2. Configure dependency with '...'
+3. Call `resolve()` or `override()` with '...'
 4. See error
 
 ## Expected Behavior
@@ -28,25 +28,21 @@ What actually happened.
 
 ## Code Sample
 
-```javascript
+```typescript
 // Minimal code example that demonstrates the issue
-```
+import { resolve, override, reflection } from "first-di";
 
-## ESLint Configuration
-
-```javascript
-// Your eslint.config.js
+// Your code here
 ```
 
 ## Environment
 
-- **@labeg/code-style version**: [e.g., 6.9.0]
-- **ESLint version**: [e.g., 9.39.1]
+- **first-di version**: [e.g., 3.3.2]
+- **reflect-metadata version**: [e.g., 0.2.2]
+- **TypeScript version**: [e.g., 5.8.3]
 - **Node.js version**: [e.g., 20.10.0]
 - **npm/pnpm version**: [e.g., npm 10.2.3]
 - **Operating System**: [e.g., Windows 11, macOS 14, Ubuntu 22.04]
-- **TypeScript version** (if applicable): [e.g., 5.3.3]
-- **React version** (if applicable): [e.g., 19.0.0]
 
 ## Additional Context
 

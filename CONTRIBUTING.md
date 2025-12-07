@@ -1,4 +1,4 @@
-# Contributing to @labeg/code-style
+# Contributing to first-di
 
 Thank you for your interest in contributing! This document provides guidelines for contributing to this project.
 
@@ -50,8 +50,8 @@ Enhancement suggestions are welcome! Please provide:
 
 ```bash
 # Clone your fork
-git clone https://github.com/YOUR_USERNAME/code-style.git
-cd code-style
+git clone https://github.com/YOUR_USERNAME/first-di.git
+cd first-di
 
 # Install dependencies
 npm install
@@ -62,7 +62,7 @@ npm test
 
 ## Coding Standards
 
-This project follows its own ESLint rules! Key principles:
+This project follows [@labeg/code-style](https://www.npmjs.com/package/@labeg/code-style) ESLint rules. Key principles:
 
 ### Code Style
 
@@ -104,8 +104,14 @@ chore: upgrade dependencies
 Before submitting your PR:
 
 ```bash
-# Run ESLint tests
+# Run linter
+npm run lint
+
+# Run tests
 npm test
+
+# Run tests with coverage
+npm run coverage
 
 # Check for security vulnerabilities
 npm audit
@@ -141,4 +147,4 @@ By contributing, you agree that your contributions will be licensed under the MI
 
 ---
 
-Thank you for contributing to @labeg/code-style! 🎉
+Thank you for contributing to first-di! 🎉
