@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.2] - 2025-12-07
+
+### 📚 Documentation
+
+- Update README title to match branding
+
 ## [3.4.1] - 2025-12-07
 
 ### ⚙️ Miscellaneous Tasks
