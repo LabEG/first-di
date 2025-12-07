@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.3] - 2025-12-07
+
+### 📚 Documentation
+
+- Update bug report template and contributing guidelines for first-di
+
 ## [3.4.2] - 2025-12-07
 
 ### 📚 Documentation
