@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.7] - 2025-12-16
+
+### ⚙️ Miscellaneous Tasks
+
+- Update dependencies and add upgrade script
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.6] - 2025-12-16
 
 ## [3.4.5] - 2025-12-09
