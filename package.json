@@ -36,23 +36,26 @@
         "build": "rm -rf dist/ && tsc --project tsconfig.build.json && node ./dist/index.js",
         "release": "cliff-jumper --name 'first-di' --package-path '.' --no-skip-changelog --no-skip-tag",
         "prepublishOnly": "npm run lint && npm run build && npm run test",
+        "upgrade": "ncu -u && rimraf -v node_modules package-lock.json && npm install",
         "prepare": "husky"
     },
     "peerDependencies": {
         "reflect-metadata": ">=0.1.0"
     },
     "devDependencies": {
-        "@labeg/code-style": "^6.5.0",
-        "@swc-node/register": "^1.10.10",
-        "@types/chai": "^5.2.2",
-        "chai": "^5.2.1",
-        "reflect-metadata": "^0.2.2",
-        "typescript": "^5.8.3",
-        "@commitlint/cli": "^19.8.1",
-        "@commitlint/config-conventional": "^19.8.1",
+        "@commitlint/cli": "^20.2.0",
+        "@commitlint/config-conventional": "^20.2.0",
+        "@favware/cliff-jumper": "^6.0.0",
+        "@labeg/code-style": "^6.10.14",
+        "@swc-node/register": "^1.11.1",
+        "@types/chai": "^5.2.3",
+        "chai": "^6.2.1",
         "husky": "^9.1.7",
-        "lint-staged": "^16.1.2",
-        "@favware/cliff-jumper": "^6.0.0"
+        "lint-staged": "^16.2.7",
+        "npm-check-updates": "^19.2.0",
+        "reflect-metadata": "^0.2.2",
+        "rimraf": "^6.1.2",
+        "typescript": "^5.9.3"
     },
     "keywords": [
         "dependency injection",
