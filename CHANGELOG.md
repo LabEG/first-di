@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.11] - 2026-01-13
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.10] - 2026-01-06
 
 # Changelog
