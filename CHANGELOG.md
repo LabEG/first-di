@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.12] - 2026-01-17
+
+### ⚙️ Miscellaneous Tasks
+
+- Update schedule for CodeQL and npm-publish workflows
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.11] - 2026-01-13
 
 # Changelog
