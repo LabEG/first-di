@@ -15,11 +15,18 @@
         "strict": true,
         "skipLibCheck": true,
         "moduleResolution": "node",
-        "noEmit": true
+        "noEmit": true,
+        "allowImportingTsExtensions": true
     },
     "include": [
         "./node_modules/reflect-metadata/index.d.ts",
         "./src/**/*",
         "./tests/**/*"
-    ]
+    ],
+    "ts-node": {
+        "esm": true,
+        "swc": true,
+        "experimentalResolver": true,
+        "experimentalSpecifierResolution": "node"
+    }
 }
