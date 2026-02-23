@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.13] - 2026-02-23
+
+### 🚜 Refactor
+
+- Update test scripts to use register-ts-node.js for TypeScript support
+
+### ⚙️ Miscellaneous Tasks
+
+- *(deps)* Bump lewagon/wait-on-check-action from 1.4.1 to 1.5.0
+- *(deps-dev)* Bump the all-minor-patch group across 1 directory with 4 updates
+- Update test scripts and dependencies; remove ts-loader.js
+- Reorganize CHANGELOG.md for better readability and consistency
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.12] - 2026-01-17
 
 ### ⚙️ Miscellaneous Tasks
