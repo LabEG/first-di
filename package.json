@@ -30,9 +30,9 @@
     },
     "scripts": {
         "lint": "eslint --fix ./src/ ./tests/",
-        "test": "node --no-experimental-strip-types --require reflect-metadata --loader ts-node/esm --test --test-reporter=spec --test-reporter-destination=stdout \"tests/**/*.spec.ts\"",
-        "test-watch": "node --watch --no-experimental-strip-types --require reflect-metadata --loader ts-node/esm --test --test-reporter=spec --test-reporter-destination=stdout \"tests/**/*.spec.ts\"",
-        "coverage": "node --no-experimental-strip-types --require reflect-metadata --loader ts-node/esm --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage/lcov.info \"tests/**/*.spec.ts\"",
+        "test": "node --import ./register-ts-node.js --test --test-reporter=spec --test-reporter-destination=stdout \"tests/**/*.spec.ts\"",
+        "test-watch": "node --watch --import ./register-ts-node.js --test --test-reporter=spec --test-reporter-destination=stdout \"tests/**/*.spec.ts\"",
+        "coverage": "node --import ./register-ts-node.js --test --experimental-test-coverage --test-reporter=lcov --test-reporter-destination=coverage/lcov.info \"tests/**/*.spec.ts\"",
         "build": "rm -rf dist/ && tsc --project tsconfig.build.json && node ./dist/index.js",
         "release": "cliff-jumper --name 'first-di' --package-path '.' --no-skip-changelog --no-skip-tag",
         "prepublishOnly": "npm run lint && npm run build && npm run test",
