@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.14] - 2026-04-02
+
+### ⚙️ Miscellaneous Tasks
+
+- *(deps-dev)* Bump minimatch from 3.1.3 to 3.1.5 (#19)
+- *(deps-dev)* Bump the all-minor-patch group with 3 updates (#20)
+- *(deps-dev)* Bump the all-minor-patch group with 3 updates (#21)
+- *(deps-dev)* Bump the all-minor-patch group with 4 updates (#22)
+- *(deps-dev)* Bump flatted from 3.3.3 to 3.4.2 (#23)
+- *(deps-dev)* Bump @swc/core in the all-minor-patch group (#24)
+- *(deps)* Bump picomatch from 4.0.3 to 4.0.4 (#25)
+- *(deps-dev)* Bump npm-check-updates in the all-minor-patch group (#26)
+- *(deps)* Bump lewagon/wait-on-check-action from 1.5.0 to 1.6.0 (#27)
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.13] - 2026-02-23
 
 ### 🚜 Refactor
