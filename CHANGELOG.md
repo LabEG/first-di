@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.15] - 2026-04-19
+
+### 🚜 Refactor
+
+- Update imports to include file extensions and adjust TypeScript configuration
+
+### ⚙️ Miscellaneous Tasks
+
+- *(deps-dev)* Bump the all-minor-patch group with 2 updates (#28)
+- *(deps)* Bump lewagon/wait-on-check-action from 1.6.0 to 1.6.1 (#29)
+- *(deps-dev)* Bump @favware/cliff-jumper in the all-minor-patch group (#30)
+- *(deps)* Bump dependabot/fetch-metadata from 2 to 3 (#31)
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.14] - 2026-04-02
 
 ### ⚙️ Miscellaneous Tasks
