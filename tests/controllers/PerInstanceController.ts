@@ -1,6 +1,6 @@
 import {autowired, AutowiredLifetimes} from "../../src/index.js";
-import type {TestModel} from "../models/TestModel";
-import {ProductionService} from "../services/ProductionService";
+import type {TestModel} from "../models/TestModel.js";
+import {ProductionService} from "../services/ProductionService.js";
 
 export class Controller {
 

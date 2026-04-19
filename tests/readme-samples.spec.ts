@@ -5,7 +5,7 @@
 
 import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
-import {reset, override, resolve, reflection} from "../src/index";
+import {reset, override, resolve, reflection} from "../src/index.js";
 import {describe, it, afterEach} from "node:test";
 
 describe("DI.ts", () => {

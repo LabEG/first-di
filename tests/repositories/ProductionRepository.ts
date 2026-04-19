@@ -1,5 +1,5 @@
-import {TestModel} from "../models/TestModel";
-import {reflection} from "../../src/decorators/reflection";
+import {TestModel} from "../models/TestModel.js";
+import {reflection} from "../../src/decorators/reflection.js";
 
 @reflection
 export class ProductionRepository {

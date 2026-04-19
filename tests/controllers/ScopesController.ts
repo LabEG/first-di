@@ -1,7 +1,7 @@
 
 import {DI} from "../../src/index.js";
-import type {TestModel} from "../models/TestModel";
-import {ProductionService} from "../services/ProductionService";
+import type {TestModel} from "../models/TestModel.js";
+import {ProductionService} from "../services/ProductionService.js";
 
 const scopeA = new DI();
 const scopeB = new DI();

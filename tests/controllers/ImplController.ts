@@ -1,6 +1,6 @@
 import {autowired} from "../../src/index.js";
-import type {TestModel} from "../models/TestModel";
-import {ImplProductionService} from "../services/ImplProductionService";
+import type {TestModel} from "../models/TestModel.js";
+import {ImplProductionService} from "../services/ImplProductionService.js";
 
 export class Controller {
 

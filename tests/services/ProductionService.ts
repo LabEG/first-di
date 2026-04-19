@@ -1,6 +1,6 @@
-import {reflection} from "../../src/decorators/reflection";
-import {ProductionRepository} from "../repositories/ProductionRepository";
-import type {TestModel} from "../models/TestModel";
+import {reflection} from "../../src/decorators/reflection.js";
+import {ProductionRepository} from "../repositories/ProductionRepository.js";
+import type {TestModel} from "../models/TestModel.js";
 
 @reflection
 export class ProductionService {

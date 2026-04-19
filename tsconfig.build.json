@@ -1,12 +1,11 @@
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "target": "ES2020",
-        "module": "ESNext",
         "declaration": true,
         "diagnostics": true,
         "outDir": "dist/",
-        "noEmit": false
+        "noEmit": false,
+        "allowImportingTsExtensions": false
     },
     "include": [
         "./node_modules/reflect-metadata/index.d.ts",

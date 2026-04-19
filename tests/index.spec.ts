@@ -2,11 +2,11 @@
 
 import "reflect-metadata"; // Polyfill
 import {assert} from "chai";
-import {reset, override} from "../src/index";
-import {ProductionRepository} from "./repositories/ProductionRepository";
-import {MockRepository} from "./repositories/MockRepository";
-import {AbstractRepository} from "./repositories/AbstractRepository";
-import {ImplMockRepository} from "./repositories/ImplMockRepository";
+import {reset, override} from "../src/index.js";
+import {ProductionRepository} from "./repositories/ProductionRepository.js";
+import {MockRepository} from "./repositories/MockRepository.js";
+import {AbstractRepository} from "./repositories/AbstractRepository.js";
+import {ImplMockRepository} from "./repositories/ImplMockRepository.js";
 import {describe, it, afterEach} from "node:test";
 
 describe("DI.ts", () => {
@@ -16,7 +16,7 @@ describe("DI.ts", () => {
         });
 
         it("DI must resolve dependencies", async () => {
-            const {Controller} = await import("./controllers/Controller");
+            const {Controller} = await import("./controllers/Controller.js");
 
             const controllerInstance = new Controller();
             const data = await controllerInstance.getData();
@@ -26,7 +26,7 @@ describe("DI.ts", () => {
         });
 
         it("DI must create singleton services", async () => {
-            const {Controller} = await import("./controllers/Controller");
+            const {Controller} = await import("./controllers/Controller.js");
 
             const controllerInstance1 = new Controller();
             const counter1 = await controllerInstance1.getCounter();
@@ -39,7 +39,7 @@ describe("DI.ts", () => {
         });
 
         it("DI must reset state", async () => {
-            const {Controller} = await import("./controllers/Controller");
+            const {Controller} = await import("./controllers/Controller.js");
 
             const controllerInstance1 = new Controller();
             const counter1 = await controllerInstance1.getCounter();
@@ -54,7 +54,7 @@ describe("DI.ts", () => {
         });
 
         it("DI must support multiple scopes", async () => {
-            const {Controller} = await import("./controllers/ScopesController");
+            const {Controller} = await import("./controllers/ScopesController.js");
 
             const controllerInstance = new Controller();
             const dataA = await controllerInstance.getCounterScopeA();
@@ -65,7 +65,7 @@ describe("DI.ts", () => {
         });
 
         it("DI must support per-instance injection", async () => {
-            const {Controller} = await import("./controllers/PerInstanceController");
+            const {Controller} = await import("./controllers/PerInstanceController.js");
 
             const controllerInstance1 = new Controller();
             const controllerInstance2 = new Controller();
@@ -81,7 +81,7 @@ describe("DI.ts", () => {
         it("DI must override dependency", async () => {
             override(ProductionRepository, MockRepository);
 
-            const {Controller} = await import("./controllers/Controller");
+            const {Controller} = await import("./controllers/Controller.js");
 
             const controllerInstance = new Controller();
             const data = await controllerInstance.getData();
@@ -93,7 +93,7 @@ describe("DI.ts", () => {
         it("DI must override abstract dependency", async () => {
             override(AbstractRepository, ImplMockRepository);
 
-            const {Controller} = await import("./controllers/ImplController");
+            const {Controller} = await import("./controllers/ImplController.js");
 
             const controllerInstance = new Controller();
             const data = await controllerInstance.getData();

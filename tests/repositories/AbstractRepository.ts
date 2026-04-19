@@ -1,5 +1,5 @@
-import type {TestModel} from "../models/TestModel";
-import {reflection} from "../../src/decorators/reflection";
+import type {TestModel} from "../models/TestModel.js";
+import {reflection} from "../../src/decorators/reflection.js";
 
 @reflection
 export abstract class AbstractRepository {
