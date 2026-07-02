@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.16] - 2026-07-02
+
+### ⚙️ Miscellaneous Tasks
+
+- *(deps-dev)* Bump @swc/core in the all-minor-patch group (#32)
+- *(deps)* Bump lewagon/wait-on-check-action from 1.6.1 to 1.7.0 (#33)
+- *(deps-dev)* Bump the all-minor-patch group with 2 updates (#34)
+- *(deps-dev)* Bump the all-minor-patch group with 3 updates (#35)
+- *(deps-dev)* Bump @labeg/code-style in the all-minor-patch group (#36)
+- *(deps)* Bump lewagon/wait-on-check-action from 1.7.0 to 1.8.0 (#38)
+- *(deps-dev)* Bump js-yaml from 4.1.1 to 4.2.0 (#39)
+- *(deps)* Bump actions/checkout from 6 to 7 (#40)
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.15] - 2026-04-19
 
 ### 🚜 Refactor
