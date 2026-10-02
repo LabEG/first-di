@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.4.17] - 2026-10-02
+
+### ⚙️ Miscellaneous Tasks
+
+- *(deps)* Bump lewagon/wait-on-check-action from 1.8.0 to 1.8.1 (#41)
+- *(deps)* Bump actions/setup-node from 6 to 7 (#42)
+- *(deps-dev)* Bump fast-uri from 3.1.2 to 3.1.4 (#43)
+- *(deps)* Bump lewagon/wait-on-check-action from 1.8.1 to 1.9.0 (#44)
+- *(deps)* Bump github/codeql-action from 4 to 4.37.4 (#45)
+- *(deps-dev)* Bump fast-uri from 3.1.4 to 3.1.5 (#46)
+- *(deps-dev)* Bump brace-expansion from 1.1.12 to 1.1.18 (#47)
+- *(deps)* Upgrade dev dependencies to latest versions
+
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
 ## [3.4.16] - 2026-07-02
 
 ### ⚙️ Miscellaneous Tasks
